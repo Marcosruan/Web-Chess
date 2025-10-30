@@ -1,0 +1,126 @@
+body{
+    margin: 0;
+    background: linear-gradient(270deg, #313131 0%, #111111 90%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    display: flex;
+    height: 96vh; 
+    width: 64.13vw; 
+    justify-content: center;
+    align-items: center;
+    gap: 8.785vw;
+    background-color: transparent;
+    margin-top: 2vh;
+    border-radius: 7px;
+}
+
+.match-container{
+    display: flex;
+    background-color: rgba(119, 119, 114, 0.2);
+    height: 40.7vw; 
+    width: 33.38vw; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 7px;
+}
+
+.oponent-bar{
+    display: flex;
+    background-color: transparent;
+    height: 3.66vw; 
+    width: 100%;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: #a6a7a3 solid 0.2px;
+}
+
+.oponent-avatar{
+    display: flex;
+    height: 40px;
+    width: 40px;
+    background-color: #c3e939;
+    margin-right: 10px;
+    border-radius: 7px;
+}
+
+.chess-board{
+    display: flex;
+    background-color: #98eee8;
+    height: 33.38vw;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.player-bar{
+    display: flex;
+    background-color: transparent;
+    height: 3.66vw; 
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: #a6a7a3 solid 0.2px;
+}
+
+.player-avatar{
+    display: flex;
+    height: 40px;
+    width: 40px;
+    background-color: #c3e939;
+    margin-left: 10px;
+    border-radius: 7px;
+}
+
+.moves-log-container{
+    display: flex;
+    background-color: #c4b4b4;
+    height: 40.7vw;
+    width: 21.96vw; 
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.settings-bar{
+    display: flex;
+    background-color: #9ca872;
+    height: 3.66vw; 
+    width: 100%;
+}
+
+.moves-log{
+    display: flex;
+    background-color: #98eee8;
+    height: 33.38vw;
+    width: 100%;
+}
+
+.prev-next-move-bar{
+    display: flex;
+    background-color: #9ca872;
+    height: 3.66vw; 
+    width: 100%;
+}
+
+.row{
+    display: flex;
+    width: 100%;
+    background-color: aqua;
+}
+
+.square{
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: bisque;
+}
+
+.white-square{
+    background-color: rgb(200, 202, 204);
+}
+
+.black-square{
+    background-color: rgb(41, 41, 41);
+}
