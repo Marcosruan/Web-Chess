@@ -1,3 +1,15 @@
+:root{
+      --cores-white: #ffffff;
+
+      --cores-gray-200: rgba(119, 119, 114, 0.2);
+
+      --cores-gray-100: #404040;
+
+      --cores-gray-button: rgba(77, 76, 76, 0.5);
+
+      --cores-gray-sublinha: #a6a7a3;
+}
+
 body{
     margin: 0;
     background: linear-gradient(270deg, #313131 0%, #111111 100%);
@@ -20,7 +32,7 @@ body{
 
 .match-container{
     display: flex;
-    background-color: rgba(119, 119, 114, 0.2);
+    background-color: var(--cores-gray-200);
     height: 40.7vw; 
     width: 33.38vw; 
     flex-direction: row;
@@ -35,14 +47,14 @@ body{
     width: 100%;
     justify-content: flex-start;
     align-items: center;
-    border-bottom: #a6a7a3 solid 0.2px;
+    border-bottom: var(--cores-gray-sublinha) solid 0.2px;
 }
 
 .oponent-avatar{
     display: flex;
     height: 3vw; 
     width: 3vw;
-    background-color: #c3e939;
+    background-color: var(--cores-gray-100);
     margin-right: 0.7vw;
     margin-left: 0.7vw;
     border-radius: 7px;
@@ -57,21 +69,37 @@ body{
 }
 
 .oponent-nickname{
+    display: flex;
+    align-items: center;
     height: 50%;
     width: 100%;
-    background: #24d7dd;
+    background: transparent;
 
 }
 
+#oponent-nickname-p{
+    font-size: 1.5vw;
+    color: white;
+    margin: 0;
+}
+
 .oponent-score{
+    display: flex;
+    align-items: center;
     height: 50%;
     width: 100%;
-    background: #a6d5d6;
+    background: transparent;
+}
+
+#oponent-score-p{
+    font-size: 1.4vw;
+    color: white;
+    margin: 0;
 }
 
 .chess-board{
     display: flex;
-    background-color: #98eee8;
+    background-color: transparent;
     height: 33.38vw;
     width: 100%;
     flex-wrap: wrap;
@@ -84,14 +112,14 @@ body{
     width: 100%;
     justify-content: flex-end;
     align-items: center;
-    border-top: #a6a7a3 solid 0.2px;
+    border-top: var(--cores-gray-sublinha) solid 0.2px;
 }
 
 .player-avatar{
     display: flex;
     height: 3vw; 
     width: 3vw;
-    background-color: #c3e939;
+    background-color: var(--cores-gray-100);
     margin-left: 0.7vw;
     margin-right: 0.7vw;
     border-radius: 7px;
@@ -100,26 +128,44 @@ body{
 .player-info{
     display: flex;
     flex-direction: column;
-    background: #24d7dd;
+    background: transparent;
     height: 3vw;
     width: 12vw;
 }
 
 .player-nickname{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     height: 50%;
     width: 100%;
-    background: #24d7dd;
+    background: transparent;
+}
+
+#player-nickname-p{
+    font-size: 1.5vw;
+    color: white;
+    margin: 0;
 }
 
 .player-score{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
     height: 50%;
     width: 100%;
-    background: #8abec0;
+    background: transparent;
+}
+
+#player-score-p{
+    font-size: 1.4vw;
+    color: white;
+    margin: 0;
 }
 
 .moves-log-container{
     display: flex;
-    background-color: rgba(119, 119, 114, 0.2);
+    background-color: var(--cores-gray-200);
     height: 40.7vw;
     width: 21.96vw; 
     flex-direction: row;
@@ -138,7 +184,7 @@ body{
 
 .moves-log{
     display: flex;
-    background-color: #98eee8;
+    background-color: var(--cores-gray-100);
     height: 33.38vw;
     width: 100%;
     flex-direction: column;
@@ -154,18 +200,27 @@ body{
 }
 
 .prev-button{
-    display: block;
-    height: 3vw; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scaleX(-1);
+    min-height: 20px;
+    height: 3vw;
+    min-width: 40px;
     width: 7vw; 
-    background: #df3e3e;
+    background: var(--cores-gray-button);
     border-radius: 15px;
 }
 
 .next-button{
-    display: block;
-    height: 3vw; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 20px;
+    height: 3vw;
+    min-width: 40px;
     width: 7vw; 
-    background: #df3e3e;
+    background: var(--cores-gray-button);
     border-radius: 15px;
 }
 
@@ -173,7 +228,7 @@ body{
     display: block;
     height: 4.1725vw;
     width: 4.1725vw;
-    background-color: bisque;
+    background-color: transparent;
 }
 
 .white-square{
@@ -192,11 +247,21 @@ body{
     width: 3vw;
     margin-right: 0.7vw;
     background: transparent;
-    border: none;
+    border-radius: 7px;
 }
 
 #settings-button{
     width: 3vw;
+}
+
+#next-arrow{
+    height: 3vw;
+    width: 5.25vw;
+}
+
+#prev-arrow{
+    height: 3vw;
+    width: 5.25vw;
 }
 
 .pieces{
@@ -205,8 +270,83 @@ body{
     width: 4.1725vw;
 }
 
+.mobile-move-log{
+    display: none;
+}
 
-@media (max-width: 900px){
+@media (max-width:600px){
+    .container{
+        flex-direction: column;
+        width: 100vw;
+    }
+    
+    .mobile-move-log{
+        display: flex;
+        width: 100vw;
+    }
+    
+    .match-container{
+        height: 125.5vw;
+        width: 100vw;
+    }
+
+    .oponent-bar{
+        height: 12.5vw;
+        width: 100vw;
+    }
+
+    .oponent-avatar{
+        height: 3vh; 
+        width: 3vh;
+        margin-right: 0.7vh;
+        margin-left: 0.7vh;
+    }
+
+    .oponent-info{
+        height: 3vh;
+        width: 12vh;
+    }
+
+    .chess-board{
+        height: 100vw;
+        width: 100vw;
+    }
+
+    .moves-log-container{
+        display: none;
+    }
+
+
+    .player-bar{
+        height: 12.5vw;
+        width: 100vw;
+    }
+
+    .player-avatar{
+        height: 3vh; 
+        width: 3vh;
+        margin-right: 0.7vh;
+        margin-left: 0.7vh;
+    }
+
+    .player-info{
+        height: 3vh;
+        width: 12vh;
+    }
+
+    .mobile-prev-next-buttons{
+        display: flex;
+        width: 100vw;
+    }
+
+    .square{
+        height: 12.5vw;
+        width: 12.5vw;
+    }
+
+}
+
+@media (max-width: 1024px) and (min-width: 601px){
     .container{
         flex-direction: column;
     }
@@ -282,5 +422,31 @@ body{
 
     #settings-button{
         width: 3vh;
+    }
+
+    #next-arrow{
+    height: 3vh;
+    width: 5.25vh;
+    }
+
+    #prev-arrow{
+        height: 3vh;
+        width: 5.25vh;
+    }
+
+    #oponent-nickname-p{
+        font-size: 1.5vh;
+    }
+
+    #oponent-score-p{
+        font-size: 1.2vh;
+    }
+
+    #player-nickname-p{
+        font-size: 1.5vh;
+    }
+
+    #player-score-p{
+        font-size: 1.2vh;
     }
 }
