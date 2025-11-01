@@ -1,6 +1,6 @@
 body{
     margin: 0;
-    background: linear-gradient(270deg, #313131 0%, #111111 90%);
+    background: linear-gradient(270deg, #313131 0%, #111111 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,11 +40,33 @@ body{
 
 .oponent-avatar{
     display: flex;
-    height: 40px;
-    width: 40px;
+    height: 3vw; 
+    width: 3vw;
     background-color: #c3e939;
-    margin-right: 10px;
+    margin-right: 0.7vw;
+    margin-left: 0.7vw;
     border-radius: 7px;
+}
+
+.oponent-info{
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    height: 3vw;
+    width: 12vw;
+}
+
+.oponent-nickname{
+    height: 50%;
+    width: 100%;
+    background: #24d7dd;
+
+}
+
+.oponent-score{
+    height: 50%;
+    width: 100%;
+    background: #a6d5d6;
 }
 
 .chess-board{
@@ -67,27 +89,51 @@ body{
 
 .player-avatar{
     display: flex;
-    height: 40px;
-    width: 40px;
+    height: 3vw; 
+    width: 3vw;
     background-color: #c3e939;
-    margin-left: 10px;
+    margin-left: 0.7vw;
+    margin-right: 0.7vw;
     border-radius: 7px;
+}
+
+.player-info{
+    display: flex;
+    flex-direction: column;
+    background: #24d7dd;
+    height: 3vw;
+    width: 12vw;
+}
+
+.player-nickname{
+    height: 50%;
+    width: 100%;
+    background: #24d7dd;
+}
+
+.player-score{
+    height: 50%;
+    width: 100%;
+    background: #8abec0;
 }
 
 .moves-log-container{
     display: flex;
-    background-color: #c4b4b4;
+    background-color: rgba(119, 119, 114, 0.2);
     height: 40.7vw;
     width: 21.96vw; 
     flex-direction: row;
     flex-wrap: wrap;
+    border-radius: 7px;
 }
 
 .settings-bar{
     display: flex;
-    background-color: #9ca872;
+    background-color: transparent;
     height: 3.66vw; 
     width: 100%;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .moves-log{
@@ -95,25 +141,38 @@ body{
     background-color: #98eee8;
     height: 33.38vw;
     width: 100%;
+    flex-direction: column;
 }
 
 .prev-next-move-bar{
     display: flex;
-    background-color: #9ca872;
+    justify-content: space-around;
+    align-items: center;
+    background-color: transparent;
     height: 3.66vw; 
     width: 100%;
 }
 
-.row{
-    display: flex;
-    width: 100%;
-    background-color: aqua;
+.prev-button{
+    display: block;
+    height: 3vw; 
+    width: 7vw; 
+    background: #df3e3e;
+    border-radius: 15px;
+}
+
+.next-button{
+    display: block;
+    height: 3vw; 
+    width: 7vw; 
+    background: #df3e3e;
+    border-radius: 15px;
 }
 
 .square{
     display: block;
-    height: 100%;
-    width: 100%;
+    height: 4.1725vw;
+    width: 4.1725vw;
     background-color: bisque;
 }
 
@@ -123,4 +182,105 @@ body{
 
 .black-square{
     background-color: rgb(41, 41, 41);
+}
+
+.settings-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3vw; 
+    width: 3vw;
+    margin-right: 0.7vw;
+    background: transparent;
+    border: none;
+}
+
+#settings-button{
+    width: 3vw;
+}
+
+.pieces{
+    display: block;
+    height: 4.1725vw;
+    width: 4.1725vw;
+}
+
+
+@media (max-width: 900px){
+    .container{
+        flex-direction: column;
+    }
+
+    .match-container{
+        height: 40.7vh; 
+        width: 33.38vh; 
+    }
+
+    .oponent-bar{
+        height: 3.66vh; 
+    }
+
+    .oponent-avatar{
+        height: 3vh; 
+        width: 3vh;
+        margin-right: 0.7vh;
+        margin-left: 0.7vh;
+    }
+
+    .oponent-info{
+        height: 3vh;
+        width: 12vh;
+    }
+
+    .chess-board{
+        height: 33.38vh;
+    }
+
+    .player-bar{
+        height: 3.66vh; 
+    }
+
+    .player-avatar{
+        height: 3vh; 
+        width: 3vh;
+        margin-right: 0.7vh;
+        margin-left: 0.7vh;
+    }
+
+    .player-info{
+        height: 3vh;
+        width: 12vh;
+    }
+
+    .square{
+        height: 4.1725vh;
+        width: 4.1725vh;
+    }
+
+    .moves-log-container{
+        height: 40.7vh;
+        width: 33.38vh; 
+    }
+
+    .settings-bar{
+        height: 3.66vh; 
+    }
+
+    .moves-log{
+        height: 33.38vh;
+    }
+
+    .prev-next-move-bar{
+        height: 3.66vh; 
+    }
+
+    .settings-button{
+        height: 3vh; 
+        width: 3vh;
+        margin-right: 0.7vh;
+    }
+
+    #settings-button{
+        width: 3vh;
+    }
 }
