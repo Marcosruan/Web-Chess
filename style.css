@@ -22,12 +22,18 @@ body{
     display: flex;
     height: 96vh; 
     width: 64.13vw; 
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    gap: 8.785vw;
     background-color: transparent;
     margin-top: 2vh;
     border-radius: 7px;
+}
+
+.mobile-move-log{
+    display: none;
+    height: 8vh;
+    width: 100vw;
+    background-color: aqua;
 }
 
 .match-container{
@@ -35,8 +41,7 @@ body{
     background-color: var(--cores-gray-200);
     height: 40.7vw; 
     width: 33.38vw; 
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
     border-radius: 7px;
 }
 
@@ -99,10 +104,11 @@ body{
 
 .chess-board{
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     background-color: transparent;
     height: 33.38vw;
     width: 100%;
-    flex-wrap: wrap;
 }
 
 .player-bar{
@@ -199,6 +205,14 @@ body{
     width: 100%;
 }
 
+.mobile-prev-next-buttons{
+    display: none;
+    height: 8vh;
+    width: 100vw;
+    background-color: aqua;
+
+}
+
 .prev-button{
     display: flex;
     justify-content: center;
@@ -270,6 +284,10 @@ body{
     width: 4.1725vw;
 }
 
+.row{
+    display: inline-flex;
+}
+
 .mobile-move-log{
     display: none;
 }
@@ -282,7 +300,6 @@ body{
     
     .mobile-move-log{
         display: flex;
-        width: 100vw;
     }
     
     .match-container{
@@ -336,7 +353,6 @@ body{
 
     .mobile-prev-next-buttons{
         display: flex;
-        width: 100vw;
     }
 
     .square{
