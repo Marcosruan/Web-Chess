@@ -1,0 +1,65 @@
+.mobile-move-log{
+    display: none;
+}
+
+.moves-log-container{
+    display: flex;
+}
+
+.settings-bar{
+    display: flex;
+}
+
+.moves-log{
+    display: flex;
+}
+
+.prev-next-move-bar{
+    display: flex;
+}
+
+.mobile-prev-next-buttons{
+    display: none;
+}
+
+.mobile-prev-button{
+    display: none;
+}
+
+.mobile-next-button{
+    display: none;
+}
+
+.prev-button{
+    display: flex;
+}
+
+.next-button{
+    display: flex;
+}
+
+.settings-button{
+    display: flex;
+}
+
+.mobile-settings-button{
+    display: none;
+}
+
+#settings-button{
+    width: 3vw;
+}
+
+#next-arrow{
+    height: 3vw;
+    width: 5.25vw;
+}
+
+#prev-arrow{
+    height: 3vw;
+    width: 5.25vw;
+}
+
+.mobile-move-log{
+    display: none;
+}

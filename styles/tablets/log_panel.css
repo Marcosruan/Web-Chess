@@ -1,0 +1,48 @@
+.moves-log-container{
+    height: 23vw;
+    width: 80vw; 
+}
+
+.settings-bar{
+    height: 6vw; 
+}
+
+.moves-log{
+    height: 10vw;
+}
+
+.prev-next-move-bar{
+    justify-content: center;
+    gap: 3vw;
+    height: 6vw; 
+}
+
+.settings-button{
+    height: 3.5vh; 
+    width: 3.5vh;
+    margin-right: 0.7vh;
+}
+
+.prev-button{
+    height: 5vw;
+    width: 10vw;
+}
+
+.next-button{
+    height: 5vw;
+    width: 10vw;
+}
+
+#settings-button{
+    width: 3.5vh;
+}
+
+#next-arrow{
+height: 3vh;
+width: 5.25vh;
+}
+
+#prev-arrow{
+    height: 3vh;
+    width: 5.25vh;
+}

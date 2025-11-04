@@ -1,0 +1,139 @@
+.mobile-move-log{
+    display: flex;
+    height: 8vh;
+    width: 100vw;
+    background-color: var(--cores-gray-200);
+    border-bottom: var(--cores-gray-sublinha) solid 1px;
+}
+
+.moves-log{
+    display: flex;
+    background-color: var(--cores-gray-100);
+    height: 33.38vw;
+    width: 100%;
+    flex-direction: column;
+}
+
+.settings-bar{
+    display: flex;
+    background-color: transparent;
+    height: 3.66vw; 
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.prev-next-move-bar{
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    background-color: transparent;
+    height: 3.66vw; 
+    width: 100%;
+}
+
+.moves-log-container{
+    display: none;
+    background-color: var(--cores-gray-200);
+    height: 40.7vw;
+    width: 21.96vw; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    border-radius: 7px;
+}
+
+.mobile-prev-next-buttons{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 8vh;
+    width: 100vw;
+    background-color: var(--cores-gray-200);
+    border-top: var(--cores-gray-sublinha) solid 1px;
+}
+
+.mobile-prev-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scaleX(-1);
+    min-height: 20px;
+    height: 6vh;
+    min-width: 40px;
+    width: 14vh; 
+    background: var(--cores-gray-button);
+    border-radius: 15px;
+}
+
+.mobile-next-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 20px;
+    height: 6vh;
+    min-width: 40px;
+    width: 14vh; 
+    background: var(--cores-gray-button);
+    border-radius: 15px;
+}
+
+.mobile-settings-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6vh; 
+    width: 6vh;
+    margin-right: 0.7vw;
+    background: transparent;
+    border-radius: 7px;
+}
+
+.prev-button{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    transform: scaleX(-1);
+    min-height: 20px;
+    height: 3vw;
+    min-width: 40px;
+    width: 7vw; 
+    background: var(--cores-gray-button);
+    border-radius: 15px;
+}
+
+.next-button{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    min-height: 20px;
+    height: 3vw;
+    min-width: 40px;
+    width: 7vw; 
+    background: var(--cores-gray-button);
+    border-radius: 15px;
+}
+
+.settings-button{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    height: 3vw; 
+    width: 3vw;
+    margin-right: 0.7vw;
+    background: transparent;
+    border-radius: 7px;
+}
+
+#settings-button{
+    width: 5vh;
+}
+
+#next-arrow{
+    height: 4vh;
+    width: 6vh;
+}
+
+#prev-arrow{
+    height: 4vh;
+    width: 6vh;
+}

@@ -1,0 +1,37 @@
+:root{
+      --cores-white: #ffffff;
+
+      --cores-white-square: rgb(200, 202, 204);
+
+      --cores-black-square: rgb(41, 41, 41);
+
+      --cores-gray-200: rgba(119, 119, 114, 0.2);
+
+      --cores-gray-100: #404040;
+
+      --cores-gray-button: rgba(77, 76, 76, 0.5);
+
+      --cores-gray-sublinha: #a6a7a3;
+}
+
+body{
+    margin: 0;
+    background: linear-gradient(270deg, #313131 0%, #111111 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.white-square{
+    background-color: var(--cores-white-square);
+}
+
+.black-square{
+    background-color: var(--cores-black-square);
+}
+
+.row{
+    display: inline-flex;
+}
+
+/* ♔♕♖♗♘♙ */
