@@ -6,18 +6,6 @@
     display: flex;
 }
 
-.settings-bar{
-    display: flex;
-}
-
-.moves-log{
-    display: flex;
-}
-
-.prev-next-move-bar{
-    display: flex;
-}
-
 .mobile-prev-next-buttons{
     display: none;
 }
@@ -28,18 +16,6 @@
 
 .mobile-next-button{
     display: none;
-}
-
-.prev-button{
-    display: flex;
-}
-
-.next-button{
-    display: flex;
-}
-
-.settings-button{
-    display: flex;
 }
 
 .mobile-settings-button{
