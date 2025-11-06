@@ -1,0 +1,29 @@
+.pieces{
+    display: block;
+    height: 12.5vw;
+    width: 12.5vw;
+    cursor: grab;
+    cursor: -webkit-grab;
+    overflow: hidden;
+    will-change: transform; 
+    touch-action: none;
+    background-size: 100%;
+}
+
+@media (min-width: 601px) and (max-width: 1024px){
+    .pieces{
+        height: 10vw;
+        width: 10vw;
+    }
+}
+
+@media (min-width: 1025px){
+    .pieces{
+        height: 4.1725vw;
+        width: 4.1725vw;
+    }
+}
+
+.wr{
+    background-image: url(/assets/pieces/rook-b.svg);
+}

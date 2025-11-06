@@ -131,12 +131,6 @@
     width: 12.5vw;
 }
 
-.pieces{
-    display: block;
-    height: 12.5vw;
-    width: 12.5vw;
-}
-
 #oponent-nickname-p{
     font-size: 3vh;
     color: var(--cores-white);
