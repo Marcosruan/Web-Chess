@@ -1,4 +1,4 @@
-.mobile-move-log{
+.mobile-moves-log{
     display: flex;
     height: 8vh;
     width: 100vw;
@@ -16,7 +16,7 @@
     border-radius: 7px;
 }
 
-.moves-log{
+.moves-log, .tablet-moves-log{
     display: flex;
     background-color: var(--cores-gray-100);
     height: 33.38vw;

@@ -71,9 +71,9 @@
 
 .chess-board{
     display: flex;
+    background: url(../../assets/src/Chess_Board.svg.png) no-repeat center/100%;
     flex-direction: row;
     flex-wrap: wrap;
-    background-color: transparent;
     height: 100vw;
     width: 100vw;
 }

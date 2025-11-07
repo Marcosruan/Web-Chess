@@ -4,6 +4,10 @@
     gap: 5vw;
 }
 
+.mobile-moves-log{
+    display: none;
+}
+
 .match-container{
     height: 100vw; 
     width: 80vw; 
@@ -27,7 +31,8 @@
 }
 
 .chess-board{
-    height: 90vw;
+    height: 80vw;
+    width: 80vw;
 }
 
 .player-bar{

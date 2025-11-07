@@ -1,7 +1,10 @@
-.mobile-move-log{
+.mobile-moves-log{
     display: none;
 }
 
+.tablet-moves-log{
+    display: none;
+}
 .moves-log-container{
     display: flex;
 }
