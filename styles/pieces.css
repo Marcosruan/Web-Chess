@@ -24,6 +24,10 @@
     }
 }
 
-.wr{
-    background-image: url(/assets/pieces/rook-b.svg);
+.wrq{
+    background: no-repeat center/100% url(/assets/pieces/rook-b.svg);
+}
+
+.invisible{
+    visibility: hidden;
 }

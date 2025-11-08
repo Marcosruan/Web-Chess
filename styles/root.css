@@ -22,13 +22,13 @@ body{
     align-items: center;
 }
 
-.white-square{
+/* .white-square{
     background-color: var(--cores-white-square);
-}
+} */
 
-.black-square{
+/* .black-square{
     background-color: var(--cores-black-square);
-}
+} */
 
 .row{
     display: inline-flex;
