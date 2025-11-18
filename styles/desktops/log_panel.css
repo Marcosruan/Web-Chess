@@ -1,44 +1,46 @@
-.mobile-moves-log{
-    display: none;
-}
+@media (min-width: 1025px){
+    .mobile-moves-log{
+        display: none;
+    }
 
-.tablet-moves-log{
-    display: none;
-}
-.moves-log-container{
-    display: flex;
-}
+    .tablet-moves-log{
+        display: none;
+    }
+    .moves-log-container{
+        display: flex;
+    }
 
-.mobile-prev-next-buttons{
-    display: none;
-}
+    .mobile-prev-next-buttons{
+        display: none;
+    }
 
-.mobile-prev-button{
-    display: none;
-}
+    .mobile-prev-button{
+        display: none;
+    }
 
-.mobile-next-button{
-    display: none;
-}
+    .mobile-next-button{
+        display: none;
+    }
 
-.mobile-settings-button{
-    display: none;
-}
+    .mobile-settings-button{
+        display: none;
+    }
 
-#settings-button{
-    width: 3vw;
-}
+    #settings-button{
+        width: 3vw;
+    }
 
-#next-arrow{
-    height: 3vw;
-    width: 5.25vw;
-}
+    #next-arrow{
+        height: 3vw;
+        width: 5.25vw;
+    }
 
-#prev-arrow{
-    height: 3vw;
-    width: 5.25vw;
-}
+    #prev-arrow{
+        height: 3vw;
+        width: 5.25vw;
+    }
 
-.mobile-move-log{
-    display: none;
+    .mobile-move-log{
+        display: none;
+    }
 }

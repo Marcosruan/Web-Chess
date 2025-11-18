@@ -3,14 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/root.css">
-    <link rel="stylesheet" href="styles/pieces.css">
-    <link rel="stylesheet" href="styles/mobile/board.css">
-    <link rel="stylesheet" href="styles/mobile/log_panel.css">
-    <link rel="stylesheet" href="styles/tablets/board.css" media="screen and (min-width: 601px) and (max-width: 1024px)">
-    <link rel="stylesheet" href="styles/tablets/log_panel.css" media="screen and (min-width: 601px) and (max-width: 1024px)">
-    <link rel="stylesheet" href="styles/desktops/board.css" media="screen and (min-width: 1025px)">
-    <link rel="stylesheet" href="styles/desktops/log_panel.css" media="screen and (min-width: 1025px)">
+    <link rel="stylesheet" href="styles/index.css">
     <title>Web Chess</title>
 </head>
 <body>
@@ -34,7 +27,7 @@
                 </button>
             </div>
             <div class="chess-board">
-                <div id="row8" class="row">  
+                <!-- <div id="row8" class="row">  
                     <div id="square-18" class="square"></div>
                     <div id="square-28" class="square"></div>
                     <div id="square-38" class="square"></div>
@@ -113,7 +106,7 @@
                     <div id="square-61" class="square"></div>
                     <div id="square-71" class="square"></div>
                     <div id="square-81" class="square"></div>
-                </div>
+                </div> -->
             </div>
             <div class="player-bar">
                 <div class="player-info">
@@ -154,6 +147,5 @@
         </div>
     </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/chess.js@0.13.4/dist/chess.min.js"></script>
-<script src="script.js"></script>
+<script type="module" src="script.js"></script>
 </html>
