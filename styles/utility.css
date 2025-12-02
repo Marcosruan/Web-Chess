@@ -1,0 +1,64 @@
+.flex{
+    display: flex;
+}
+
+.grid{
+    display: grid;
+}
+
+@media (width > 600px){
+    .mobile-only{
+        display: none;
+    }
+}
+
+@media (width <= 600px){
+    .mobile-not{
+        display: none;
+    }
+}
+
+@media (width <= 600px), (width >= 1025px){
+    .tablet-only {
+        display: none;
+    }
+}
+
+@media (600px < width < 1025px){
+    .tablet-not {
+        display: none;
+    }
+}
+
+@media (width < 1025px){
+    .desktop-only{
+        display: none;
+    }
+}
+
+@media (width >= 1025px){
+    .desktop-not{
+        display: none;
+    }
+}
+
+.column{
+    flex-direction: column;
+}
+
+.content-center{
+    justify-content: center;
+}
+
+.items-center{
+    align-items: center;
+}
+
+.center-center{
+    justify-content: center;
+    align-items: center;
+}
+
+.bg-transparent{
+    background: transparent;
+}

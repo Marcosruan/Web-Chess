@@ -1,46 +1,6 @@
 @media (min-width: 1025px){
-    .mobile-moves-log{
-        display: none;
-    }
-
-    .tablet-moves-log{
-        display: none;
-    }
-    .moves-log-container{
-        display: flex;
-    }
-
-    .mobile-prev-next-buttons{
-        display: none;
-    }
-
-    .mobile-prev-button{
-        display: none;
-    }
-
-    .mobile-next-button{
-        display: none;
-    }
-
-    .mobile-settings-button{
-        display: none;
-    }
-
     #settings-button{
+        background: url(../../assets/icons/settings-icon-w.svg) center/cover no-repeat;
         width: 3vw;
-    }
-
-    #next-arrow{
-        height: 3vw;
-        width: 5.25vw;
-    }
-
-    #prev-arrow{
-        height: 3vw;
-        width: 5.25vw;
-    }
-
-    .mobile-move-log{
-        display: none;
     }
 }

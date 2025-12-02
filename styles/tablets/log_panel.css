@@ -1,67 +1,35 @@
 @media (min-width: 601px) and (max-width: 1024px){
-    .moves-log-container{
-        display: flex;
+    div#moves-log-container{
         height: 23vw;
         width: 80vw; 
     }
 
-    .settings-bar{
+    #settings-bar{
         height: 6vw; 
     }
 
-    .moves-log{
-        display: none;
-    }
-
-    .tablet-moves-log{
+    #moves-log{
         height: 10vw;
     }
 
-    .prev-next-move-bar{
+    #prev-next-move-bar{
         justify-content: center;
         gap: 3vw;
         height: 6vw; 
     }
 
-    .mobile-prev-next-buttons{
-        display: none;
-    }
-
-    .mobile-settings-button{
+    #mobile-settings-button{
         border-radius: 14px;
     }
 
-    .settings-bar .settings-button{
-        display: none;
-    }
-
-    .settings-button{
+    #settings-button{
         height: 3.5vh; 
         width: 3.5vh;
         margin-right: 0.7vh;
     }
 
-    .prev-button{
+    #prev-button, #next-button{
         height: 5vw;
         width: 10vw;
-    }
-
-    .next-button{
-        height: 5vw;
-        width: 10vw;
-    }
-
-    #settings-button{
-        width: 5vh;
-    }
-
-    #next-arrow{
-    height: 3vh;
-    width: 5.25vh;
-    }
-
-    #prev-arrow{
-        height: 3vh;
-        width: 5.25vh;
     }
 }

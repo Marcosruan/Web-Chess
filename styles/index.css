@@ -1,4 +1,5 @@
 @import url(global.css);
+@import url(utility.css);
 @import url(pieces.css);
 @import url(mobile/board.css);
 @import url(mobile/log_panel.css);

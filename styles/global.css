@@ -1,9 +1,11 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 :root{
       --cores-white: #ffffff;
-
-      --cores-white-square: rgb(200, 202, 204);
-
-      --cores-black-square: rgb(41, 41, 41);
 
       --cores-gray-200: rgba(119, 119, 114, 0.2);
 
@@ -11,11 +13,10 @@
 
       --cores-gray-button: rgba(77, 76, 76, 0.5);
 
-      --cores-gray-sublinha: #a6a7a3;
+      --cores-gray-sublinha: #a6a7a36e;
 }
 
 body{
-    margin: 0;
     background: linear-gradient(270deg, #313131 0%, #111111 100%);
     display: flex;
     justify-content: center;

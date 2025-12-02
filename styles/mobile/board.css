@@ -1,40 +1,30 @@
 .container{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     width: 100vw;
     height: 96vh; 
-    align-items: center;
-    background-color: transparent;
     margin-top: 2vh;
     border-radius: 7px;
 }
 
-.oponent-group{
-    display: flex;
-}
-
-.match-container{
-    display: flex;
+#match-container{
     background-color: var(--cores-gray-200);
-    flex-direction: column;
     border-radius: 7px;
     height: 125.5vw;
     width: 100vw;
 }
 
-.oponent-bar{
-    display: flex;
+#oponent-bar, #player-bar{
     justify-content: space-between;
     height: 12.5vw;
     width: 100vw;
-    background-color: transparent;
-    align-items: center;
     border-bottom: var(--cores-gray-sublinha) solid 1px;
 }
 
-.oponent-avatar{
-    display: flex;
+#player-bar{
+    justify-content: flex-end;
+}
+
+#oponent-avatar, #player-avatar{
+    background: url(../../assets/img/nakamura.png) center/contain no-repeat;
     background-color: var(--cores-gray-100);
     border-radius: 7px;
     height: 5vh; 
@@ -43,33 +33,41 @@
     margin-left: 0.7vh;
 }
 
-.oponent-info{
-    display: flex;
-    flex-direction: column;
-    background: transparent;
+#player-avatar{
+    background: url(../../assets/img/magnus.png) center/cover no-repeat;
+}
+
+#oponent-info, #player-info{
     align-items: flex-start;
     height: 5vh;
     width: 12vh;
 }
 
-.oponent-nickname{
-    display: flex;
-    align-items: center;
-    height: 50%;
-    width: 100%;
-    background: transparent;
-
+#player-info{
+    align-items: flex-end;
 }
 
-.oponent-score{
+#oponent-nickname, #player-nickname{
+    height: 50%;
+    width: 100%;
+}
+
+#player-nickname{
+    justify-content: flex-end;
+}
+
+#oponent-score, #player-score{
     align-items: flex-start;    
-    display: flex;
     height: 50%;
     width: 100%;
-    background: transparent;
 }
 
-.chess-board{
+#player-score{
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+#chess-board{
     display: grid;
     grid-template-areas: 
     "a8 b8 c8 d8 e8 f8 g8 h8"
@@ -80,84 +78,22 @@
     "a3 b3 c3 d3 e3 f3 g3 h3"
     "a2 b2 c2 d2 e2 f2 g2 h2"
     "a1 b1 c1 d1 e1 f1 g1 h1";
-    background: url(../../assets/src/Chess_Board.svg.png) no-repeat center/100%;
+    background: url(../../assets/img/Chess_Board.svg.png) no-repeat center/100%;
     height: 100vw;
     width: 100vw;
 }
 
-.player-bar{
-    height: 12.5vw;
-    width: 100vw;
-    display: flex;
-    background-color: transparent;
-    justify-content: flex-end;
-    align-items: center;
-    border-top: var(--cores-gray-sublinha) solid 1px;
+#oponent-nickname-p, #player-nickname-p{
+    font-size: 3vh;
+    color: var(--cores-white);
 }
 
-.player-avatar{
-    display: flex;
-    background-color: var(--cores-gray-100);
-    border-radius: 7px;
-    height: 5vh; 
-    width: 5vh;
-    margin-right: 0.7vh;
-    margin-left: 0.7vh;
+#oponent-score-p, #player-score-p{
+    font-size: 2vh;
+    color: var(--cores-white);
 }
 
-.player-info{
-    display: flex;
-    align-items: flex-end;
-    height: 5vh;
-    width: 12vh;
-    flex-direction: column;
-    background: transparent;
-}
-
-.player-nickname{
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    height: 50%;
-    width: 100%;
-    background: transparent;
-}
-
-.player-score{
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    height: 50%;
-    width: 100%;
-    background: transparent;
-}
-
-.square{
-    display: block;
+/* #square{
     height: 12.5vw;
     width: 12.5vw;
-}
-
-#oponent-nickname-p{
-    font-size: 3vh;
-    color: var(--cores-white);
-    margin: 0;
-}
-
-#oponent-score-p{
-    font-size: 2vh;
-    color: var(--cores-white);
-    margin: 0;
-}
-
-#player-nickname-p{
-    font-size: 3vh;
-    color: var(--cores-white);    
-    margin: 0;
-}
-
-#player-score-p{
-    font-size: 2vh;
-    color: var(--cores-white);
-    margin: 0;
-}
+} */

@@ -1,76 +1,46 @@
 @media (min-width: 601px) and (max-width: 1024px){
-    .container{
+    main.container{
         width: 80vw;
-        justify-content: center;
         gap: 5vw;
     }
 
-    .mobile-moves-log{
-        display: none;
-    }
-
-    .match-container{
+    #match-container{
         height: 100vw; 
         width: 80vw; 
     }
 
-    .oponent-bar{
+    #oponent-bar, #player-bar{
         height: 10vw; 
         width: 100%;
     }
 
-    .oponent-avatar{
+    #oponent-avatar, #player-avatar{
         height: 8vw; 
         width: 8vw;
         margin-right: 0.7vh;
         margin-left: 0.7vh;
     }
 
-    .oponent-info{
+    #oponent-info, #player-info{
         height: 8vw;
         width: 30vw;
     }
 
-    .chess-board{
+    #chess-board{
         height: 80vw;
         width: 80vw;
     }
 
-    .player-bar{
-        width: 100%;
-        height: 10vw; 
+    #oponent-nickname-p, #player-nickname-p{
+        font-size: 3vh;
     }
 
-    .player-avatar{
-        height: 8vw; 
-        width: 8vw;
-        margin-right: 0.7vh;
-        margin-left: 0.7vh;
+    #oponent-score-p, #player-score-p{
+        font-size: 2vh;
     }
 
-    .player-info{
-        height: 8vw;
-        width: 30vw;
-    }
-
-    .square{
+    /* #square{
         height: 10vw;
         width: 10vw;
-    }
-
-    #oponent-nickname-p{
-        font-size: 3vh;
-    }
-
-    #oponent-score-p{
-        font-size: 2vh;
-    }
-
-    #player-nickname-p{
-        font-size: 3vh;
-    }
-
-    #player-score-p{
-        font-size: 2vh;
-    }
+    } */
 }
