@@ -18,11 +18,11 @@
         height: 6vw; 
     }
 
-    #mobile-settings-button{
+    .mobile-settings-button{
         border-radius: 14px;
     }
 
-    #settings-button{
+    .settings-button{
         height: 3.5vh; 
         width: 3.5vh;
         margin-right: 0.7vh;

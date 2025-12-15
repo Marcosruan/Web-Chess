@@ -1,5 +1,5 @@
 @media (min-width: 1025px){
-    #settings-button{
+    .settings-button{
         background: url(../../assets/icons/settings-icon-w.svg) center/cover no-repeat;
         width: 3vw;
     }

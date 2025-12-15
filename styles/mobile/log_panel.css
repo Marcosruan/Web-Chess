@@ -57,7 +57,7 @@
     transform: scaleX(-1);
 }
 
-#mobile-settings-button{
+.mobile-settings-button{
     height: 6vh; 
     width: 6vh;
     margin-right: 0.7vw;
@@ -82,7 +82,7 @@
     transform: scaleX(-1);
 }
 
-#settings-button{
+.settings-button{
     height: 3vw; 
     width: 3vw;
     margin-right: 0.7vw;

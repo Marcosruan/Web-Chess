@@ -22,89 +22,9 @@
                         </div>
                     </div>
                 </div>
-                <button id="mobile-settings-button" class="flex center-center desktop-not"></button>
+                <button id="settings-button" class="mobile-settings-button flex center-center desktop-not"></button>
             </div>
-            <div id="chess-board">
-                <!-- <div id="row8" class="row">  
-                    <div id="square-28" class="square"></div>
-                    <div id="square-38" class="square"></div>
-                    <div id="square-48" class="square"></div>
-                    <div id="square-58" class="square"></div>
-                    <div id="square-68" class="square"></div>
-                    <div id="square-78" class="square"></div>
-                    <div id="square-88" class="square"></div>
-                </div>
-                <div id="row7" class="row">
-                    <div id="square-17" class="square"></div>
-                    <div id="square-27" class="square"></div>
-                    <div id="square-37" class="square"></div>
-                    <div id="square-47" class="square"></div>
-                    <div id="square-57" class="square"></div>
-                    <div id="square-67" class="square"></div>
-                    <div id="square-77" class="square"></div>
-                    <div id="square-87" class="square"></div>
-                </div>                
-                <div id="row6" class="row">
-                    <div id="square-16" class="square"></div>
-                    <div id="square-26" class="square"></div>
-                    <div id="square-36" class="square"></div>
-                    <div id="square-46" class="square"></div>
-                    <div id="square-56" class="square"></div>
-                    <div id="square-66" class="square"></div>
-                    <div id="square-76" class="square"></div>
-                    <div id="square-86" class="square"></div>
-                </div>
-                <div id="row5" class="row">
-                    <div id="square-15" class="square"></div>
-                    <div id="square-25" class="square"></div>
-                    <div id="square-35" class="square"></div>
-                    <div id="square-45" class="square"></div>
-                    <div id="square-55" class="square"></div>
-                    <div id="square-65" class="square"></div>
-                    <div id="square-75" class="square"></div>
-                    <div id="square-85" class="square"></div>
-                </div>
-                <div id="row4" class="row">
-                    <div id="square-14" class="square"></div>
-                    <div id="square-24" class="square"></div>
-                    <div id="square-34" class="square"></div>
-                    <div id="square-44" class="square"></div>
-                    <div id="square-54" class="square"></div>
-                    <div id="square-64" class="square"></div>
-                    <div id="square-74" class="square"></div>
-                    <div id="square-84" class="square"></div>
-                </div>
-                <div id="row3" class="row">
-                    <div id="square-13" class="square"></div>
-                    <div id="square-23" class="square"></div>
-                    <div id="square-33" class="square"></div>
-                    <div id="square-43" class="square"></div>
-                    <div id="square-53" class="square"></div>
-                    <div id="square-63" class="square"></div>
-                    <div id="square-73" class="square"></div>
-                    <div id="square-83" class="square"></div>
-                </div>
-                <div id="row2" class="row">
-                    <div id="square-12" class="square"></div>
-                    <div id="square-22" class="square"></div>
-                    <div id="square-32" class="square"></div>
-                    <div id="square-42" class="square"></div>
-                    <div id="square-52" class="square"></div>
-                    <div id="square-62" class="square"></div>
-                    <div id="square-72" class="square"></div>
-                    <div id="square-82" class="square"></div>
-                </div>
-                <div id="row1" class="row">
-                    <div id="square-11" class="square"></div>
-                    <div id="square-21" class="square"></div>
-                    <div id="square-31" class="square"></div>
-                    <div id="square-41" class="square"></div>
-                    <div id="square-51" class="square"></div>
-                    <div id="square-61" class="square"></div>
-                    <div id="square-71" class="square"></div>
-                    <div id="square-81" class="square"></div>
-                </div> -->
-            </div>
+            <div id="chess-board"></div>
             <div id="player-bar" class="flex items-center bg-transparent">
                 <div id="player-info" class="flex column bg-transparent">
                     <div id="player-nickname" class="flex items-center bg-transparent">
@@ -119,7 +39,7 @@
         </div>
         <div id="moves-log-container" class="flex mobile-not">
             <div id="settings-bar" class="flex items-center bg-transparent">
-                <button id="settings-button" class="flex center-center bg-transparent tablet-not">
+                <button id="mobile-settings-button" class="settings-button flex center-center bg-transparent tablet-not">
                 </button>
             </div>
             <div id="moves-log" class="flex column"></div>
@@ -133,6 +53,16 @@
             <button id="mobile-next-button" class="flex center-center mobile-only"></button>
         </div>
     </main>
+    <div id="modal">
+        <div id="modal-content">
+            <button id="theme-mode"></button>
+            <span>Change the theme color of the page</span>
+            <button id="reset-button">Reset</button>
+            <span>Reset board to the default position.</span>
+            <strong>After reseting, the previous match will no longer be available to play.</strong>
+        </div>
+    </div>
 </body>
-<script type="module" src="script.js"></script>
+<script src="scripts/script.js"></script>
+<script src="scripts/modal.js"></script>
 </html>
