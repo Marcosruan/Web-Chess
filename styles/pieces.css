@@ -27,24 +27,82 @@
     }
 }
 
-.wp{
-    background: no-repeat center/100% url(/assets/pieces/pawn-w.svg);
+/* ♖ */
+.brq{
+    background: no-repeat center/100% url(/assets/pieces/rook-b.svg);
 }
 
 .wrq{
     background: no-repeat center/100% url(/assets/pieces/rook-w.svg);
 }
 
+.brk{
+    background: no-repeat center/100% url(/assets/pieces/rook-b.svg);
+}
+
+.wrk{
+    background: no-repeat center/100% url(/assets/pieces/rook-w.svg);
+}
+
+/* ♘ */
+.bnq{
+    background: no-repeat center/100% url(/assets/pieces/knight-b.svg);
+}
+
 .wnq{
     background: no-repeat center/100% url(/assets/pieces/knight-w.svg);
+}
+
+.bnk{
+    background: no-repeat center/100% url(/assets/pieces/knight-b.svg);
+}
+
+.wnk{
+    background: no-repeat center/100% url(/assets/pieces/knight-w.svg);
+}
+
+/* ♗ */
+.bbq{
+    background: no-repeat center/100% url(/assets/pieces/bishop-b.svg);
 }
 
 .wbq{
     background: no-repeat center/100% url(/assets/pieces/bishop-w.svg);
 }
 
-.wrk{
-    background: no-repeat center/100% url(/assets/pieces/rook-w.svg);
+.bbk{
+    background: no-repeat center/100% url(/assets/pieces/bishop-b.svg);
+}
+
+.wbk{
+    background: no-repeat center/100% url(/assets/pieces/bishop-w.svg);
+}
+
+/* ♕ */
+.bq{
+    background: no-repeat center/100% url(/assets/pieces/queen-b.svg);
+}
+
+.wq{
+    background: no-repeat center/100% url(/assets/pieces/queen-w.svg);
+}
+
+/* ♔ */
+.bk{
+    background: no-repeat center/100% url(/assets/pieces/king-b.svg);
+}
+
+.wk{
+    background: no-repeat center/100% url(/assets/pieces/king-w.svg);
+}
+
+/* ♙ */
+.bp{
+    background: no-repeat center/100% url(/assets/pieces/pawn-b.svg);
+}
+
+.wp{
+    background: no-repeat center/100% url(/assets/pieces/pawn-w.svg);
 }
 
 .invisible{

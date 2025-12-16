@@ -8,7 +8,7 @@
 </head>
 <body>
     <main class="container center-center flex column bg-transparent">
-        <div id="mobile-moves-log" class="flex mobile-only"></div>
+        <div id="mobie-moves-history" class="flex mobile-only"></div>
         <div id="match-container" class="flex column">
             <div id="oponent-bar" class="flex items-center bg-transparent">
                 <div id="oponent-group" class="flex">
@@ -24,7 +24,41 @@
                 </div>
                 <button id="settings-button" class="mobile-settings-button flex center-center desktop-not"></button>
             </div>
-            <div id="chess-board"></div>
+            <div id="chess-board">
+                <div class="pieces brq 8a"></div>
+                <div class="pieces bnq b8"></div>
+                <div class="pieces bbq c8"></div>
+                <div class="pieces bq d8"></div>
+                <div class="pieces bk e8"></div>
+                <div class="pieces bbk f8"></div>
+                <div class="pieces bnk g8"></div>
+                <div class="pieces brk h8"></div>
+                <div class="pieces bp a7"></div>
+                <div class="pieces bp b7"></div>
+                <div class="pieces bp c7"></div>
+                <div class="pieces bp d7"></div>
+                <div class="pieces bp e7"></div>
+                <div class="pieces bp f7"></div>
+                <div class="pieces bp g7"></div>
+                <div class="pieces bp h7"></div>
+
+                <div class="pieces wrq a1"></div>
+                <div class="pieces wnq b1"></div>
+                <div class="pieces wbq c1"></div>
+                <div class="pieces wq d1"></div>
+                <div class="pieces wk e1"></div>
+                <div class="pieces wbk f1"></div>
+                <div class="pieces wnk g1"></div>
+                <div class="pieces wrk h1"></div>
+                <div class="pieces wp a2"></div>
+                <div class="pieces wp b2"></div>
+                <div class="pieces wp c2"></div>
+                <div class="pieces wp d2"></div>
+                <div class="pieces wp e2"></div>
+                <div class="pieces wp f2"></div>
+                <div class="pieces wp g2"></div>
+                <div class="pieces wp h2"></div>
+            </div>
             <div id="player-bar" class="flex items-center bg-transparent">
                 <div id="player-info" class="flex column bg-transparent">
                     <div id="player-nickname" class="flex items-center bg-transparent">
@@ -37,12 +71,12 @@
                 <div id="player-avatar" class="flex"></div>
             </div>
         </div>
-        <div id="moves-log-container" class="flex mobile-not">
+        <div id="moves-history-container" class="flex mobile-not">
             <div id="settings-bar" class="flex items-center bg-transparent">
                 <button id="mobile-settings-button" class="settings-button flex center-center bg-transparent tablet-not">
                 </button>
             </div>
-            <div id="moves-log" class="flex column"></div>
+            <div id="moves-history" class="flex column"></div>
             <div id="prev-next-move-bar" class="flex items-center bg-transparent">
                 <button id="prev-button" class="flex center-center desktop-not"></button>
                 <button id="next-button" class="flex center-center desktop-not"></button>
@@ -63,6 +97,7 @@
         </div>
     </div>
 </body>
+
 <script src="scripts/script.js"></script>
 <script src="scripts/modal.js"></script>
 </html>

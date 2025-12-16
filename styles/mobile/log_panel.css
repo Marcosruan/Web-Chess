@@ -1,11 +1,11 @@
-#mobile-moves-log{
+#mobie-moves-history{
     height: 8vh;
     width: 100vw;
     background-color: var(--cores-gray-200);
     border-bottom: var(--cores-gray-sublinha) solid 1px;
 }
 
-#moves-log-container{
+#moves-history-container{
     background-color: var(--cores-gray-200);
     height: 40.7vw;
     width: 21.96vw; 
@@ -14,7 +14,7 @@
     border-radius: 7px;
 }
 
-#moves-log{
+#moves-history{
     background-color: var(--cores-gray-100);
     height: 33.38vw;
     width: 100%;

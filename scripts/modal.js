@@ -49,7 +49,7 @@ board.addEventListener('drop', (e) => {
     const coordX = Math.floor(xInsideBoard / cellWidth) + 1;
     const coordY = Math.floor(yInsideBoard / cellHeight) * -1;
     
-    console.log(`Mouse na coordenada (X, Y): (${coordX}, ${coordY})`);
+    console.log(`Peça movida para a coordenada (X, Y): (${coordX}, ${coordY})`);
 });
 
 board.addEventListener('dragover', (e) => {
@@ -57,10 +57,14 @@ board.addEventListener('dragover', (e) => {
     e.dataTransfer.dropEffect = "move"; 
 });
 
-resetButton.addEventListener('click', () => {
-    // lembrar de resetar o chess.js ----------------------------------------------------------------------------
-    newDiv = document.createElement("div")
-    newDiv.classList.add("pieces", "wrq", "a1")
-    newDiv.setAttribute('draggable', 'true')
-    board.appendChild(newDiv)
-})
+// resetButton.addEventListener('click', () => {
+//     const pieces = [
+//         "wrq", "a1",
+
+//     ]
+//     // lembrar de resetar o chess.js ----------------------------------------------------------------------------
+//     newDiv = document.createElement("div")
+//     newDiv.classList.add("pieces", "wrq", "a1")
+//     newDiv.setAttribute('draggable', 'true')
+//     board.appendChild(newDiv)
+// })
