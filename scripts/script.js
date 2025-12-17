@@ -1,9 +1,4 @@
-const chessBoard = document.getElementById("chess-board")
-function resetPieces(){
-    div.innerHTML = ''
-    chessBoard.appendChild(document.createElement("div.pieces.wrq"))
-}
+import { Chess } from 'https://cdn.jsdelivr.net/npm/chess.js@1.0.0-beta.8/+esm';
 
-function settings(){
-    
-}
+export const chess = new Chess();
+
