@@ -25,17 +25,60 @@ function translateCoords(dict){
     return `${letters[dict.x-1]}${String(dict.y)}`
 }
 
+function selectedBg(coord){
+    let element = document.querySelector(`.${coord}`)
+    let selected = document.querySelector(".selected")
+    
+    if (selected != null) selected.classList.remove("selected")
+
+    element.classList.add("selected")
+}
+    
+function movedBg(coord){
+    let element = document.querySelector(`.${coord}`)
+    let moved = document.querySelector(".moved")
+
+    if (moved != null) moved.classList.remove("moved")
+
+    element.classList.add("moved")
+}
+    
+function movePiece(Pcoord, Scoord){
+    let piece = document.querySelector(`.${Pcoord}`)
+
+    piece.classList.remove(Pcoord)
+    piece.classList.add(Scoord)
+
+    movedBg(Pcoord)
+}
+
+function checkMove(coord){
+    var selectedPiece
+    let element = document.querySelector(`.${coord}`)
+
+    if (!(element.classList.contains('pieces'))) {
+        if (selectedPiece != null && selectedPiece != undefined){
+            movePiece(selectedPiece, coord)
+            selectedPiece = undefined
+        }
+    } else{
+        selectedBg(coord)
+        selectedPiece = coord
+    }
+}
+
 board.addEventListener('mousedown', (e) => {
     if (e.button !== 0) return;
     let coords = getBoardCoords(e)
     let translatedCoords = translateCoords(coords)
-    console.log(translatedCoords)
+    checkMove(translatedCoords)
+    // console.log(translatedCoords)
 });
 
 board.addEventListener('drop', (e) => {
     let coords = getBoardCoords(e)
     let translatedCoords = translateCoords(coords)
-    console.log(translatedCoords)
+    // console.log(translatedCoords)
 });
 
 board.addEventListener('dragover', (e) => {

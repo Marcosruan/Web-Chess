@@ -108,3 +108,11 @@
 .invisible{
     visibility: hidden;
 }
+
+.selected{
+    background-color: rgb(175, 206, 248);
+}
+
+.moved{
+    background-color: rgb(162, 183, 212);
+}
