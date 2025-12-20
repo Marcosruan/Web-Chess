@@ -1,8 +1,8 @@
 import {chess} from "./script.js"
 console.log(chess.ascii())
 
-// Captura as coordenadas que o mouse clica e que as peças são arrastadas
 const board = document.querySelector("#chess-board")
+
 
 function getBoardCoords(e){
     const boardRect = board.getBoundingClientRect();
@@ -20,10 +20,12 @@ function getBoardCoords(e){
     return {"x": coordX, "y": coordY}
 }
 
+
 function translateCoords(dict){
     let letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
     return `${letters[dict.x-1]}${String(dict.y)}`
 }
+
 
 function selectedBg(coord){
     let element = document.querySelector(`.${coord}`)
@@ -33,16 +35,19 @@ function selectedBg(coord){
 
     element.classList.add("selected")
 }
-    
+
+
 function movedBg(coord){
-    let element = document.querySelector(`.${coord}`)
-    let moved = document.querySelector(".moved")
-
-    if (moved != null) moved.classList.remove("moved")
-
-    element.classList.add("moved")
+    let rastroAnterior = document.querySelector(".moved")
+    if (rastroAnterior){
+        rastroAnterior.remove()
+    }
+    let element = Object.assign(document.createElement("div"), { className: "pieces moved"})
+    element.classList.add(`${coord}`)
+    board.appendChild(element)
 }
-    
+
+
 function movePiece(Pcoord, Scoord){
     let piece = document.querySelector(`.${Pcoord}`)
 
@@ -52,10 +57,10 @@ function movePiece(Pcoord, Scoord){
     movedBg(Pcoord)
 }
 
-function checkMove(coord){
-    var selectedPiece
-    let element = document.querySelector(`.${coord}`)
+var selectedPiece
 
+function checkMove(coord){
+    let element = document.querySelector(`.${coord}:not(.moved)`) ?? document.querySelector("#chess-board");
     if (!(element.classList.contains('pieces'))) {
         if (selectedPiece != null && selectedPiece != undefined){
             movePiece(selectedPiece, coord)
@@ -67,6 +72,7 @@ function checkMove(coord){
     }
 }
 
+
 board.addEventListener('mousedown', (e) => {
     if (e.button !== 0) return;
     let coords = getBoardCoords(e)
@@ -75,11 +81,13 @@ board.addEventListener('mousedown', (e) => {
     // console.log(translatedCoords)
 });
 
+
 board.addEventListener('drop', (e) => {
     let coords = getBoardCoords(e)
     let translatedCoords = translateCoords(coords)
     // console.log(translatedCoords)
 });
+
 
 board.addEventListener('dragover', (e) => {
     e.preventDefault(); 
