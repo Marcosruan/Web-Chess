@@ -113,6 +113,13 @@
     background-color: rgb(175, 206, 248);
 }
 
-.moved{
+.moved, .movedPiece{
     background-color: rgb(162, 183, 212);
+}
+
+.possibleMove{
+    z-index: 10;
+    border-radius: 50%;
+    background-color: rgba(124, 124, 123, 0.562);
+    transform: scale(0.4);
 }

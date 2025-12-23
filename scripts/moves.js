@@ -1,8 +1,8 @@
 import {chess} from "./script.js"
-import {checkMove} from "./verifiesMoves.js"
+import {checkMove, possibleMoves, removePossibleMove} from "./verifiesMoves.js"
 console.log(chess.ascii())
 
-const board = document.querySelector("#chess-board")
+export const board = document.querySelector("#chess-board")
 
 
 function getBoardCoords(e){
@@ -30,7 +30,7 @@ function translateCoords(dict){
 function getPieceType(e){
     let pieceType
     if (e.target.classList.contains('pieces')) {
-        pieceType = e.target.classList[1];
+        pieceType = e.target.classList[2];
     }else{
         pieceType = undefined
     }
@@ -73,8 +73,9 @@ function selectedBg(coord){
     if (selected != null) selected.classList.remove("selected")
 
     element.classList.add("selected")
-}
 
+    possibleMoves(coord)
+}
 
 function movedBg(coord){
     let rastroAnterior = document.querySelector(".moved")
@@ -84,6 +85,15 @@ function movedBg(coord){
     let element = Object.assign(document.createElement("div"), { className: "pieces moved"})
     element.classList.add(`${coord}`)
     board.appendChild(element)
+}
+
+function movedPieceBg(coord){
+    let rastroAnterior = document.querySelector(".movedPiece")
+    if (rastroAnterior){
+        rastroAnterior.classList.remove('movedPiece')
+    }
+    let element = document.querySelector(`.${coord}`)
+    element.classList.add('movedPiece')
 }
 
 
@@ -96,6 +106,10 @@ export function movePiece(coordPiece, coordSquare){
     piece.classList.add(coordSquare)
 
     movedBg(coordPiece)
+    movedPieceBg(coordSquare)
+    selectedPiece = undefined
+    pieceTypeStored = undefined
+    console.log(chess.ascii()) // ----------------------------------------------
 }
 
 var selectedPiece
@@ -107,10 +121,9 @@ function captureMove(coord, pieceType){
         if (selectedPiece != null && selectedPiece != undefined){
             let coordPieceType = getCoordPieceType(coord, pieceTypeStored)
             checkMove(selectedPiece, coordPieceType, coord)
-            selectedPiece = undefined
-            pieceTypeStored = undefined
         }
     } else{
+        removePossibleMove()
         selectedBg(coord)
         selectedPiece = coord
         pieceTypeStored = pieceType
@@ -120,10 +133,12 @@ function captureMove(coord, pieceType){
 
 board.addEventListener('mousedown', (e) => {
     if (e.button !== 0) return
-    let coords = getBoardCoords(e)
-    let translatedCoords = translateCoords(coords)
-    let pieceType = getPieceType(e)
-    captureMove(translatedCoords, pieceType)
+    if (e.target.classList.contains(`${chess.turn()}`) || e.target.id == 'chess-board'){
+        let coords = getBoardCoords(e)
+        let translatedCoords = translateCoords(coords)
+        let pieceType = getPieceType(e)
+        captureMove(translatedCoords, pieceType)
+    }
 })
 
 

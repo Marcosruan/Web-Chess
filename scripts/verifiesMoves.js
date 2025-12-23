@@ -1,4 +1,4 @@
-import {movePiece} from "./moves.js"
+import {movePiece, board} from "./moves.js"
 import {chess} from "./script.js"
 
 export function checkMove(coordPiece, coordSquare, coord){
@@ -6,11 +6,22 @@ export function checkMove(coordPiece, coordSquare, coord){
     for (let i = 0; i < lista.length; i++){
         if (coordSquare === lista[i]){
             movePiece(coordPiece, coord)
+            removePossibleMove()
         }
-        console.log(lista[i])
     }
 }
 
-// function possibleMoves(Pcoord, Scoord){
+export function possibleMoves(coordPiece){
+    const lista = chess.moves({square: `${coordPiece}`})
+    for (let i = 0; i < lista.length; i++){
+        let element = Object.assign(document.createElement("div"), { className: `pieces possibleMove ${lista[i]}`})
+        board.appendChild(element)
+    }
+}
 
-// }
+export function removePossibleMove(){
+    let element = document.querySelectorAll('.possibleMove')
+    element.forEach(div => {
+        div.remove()
+    });
+}
