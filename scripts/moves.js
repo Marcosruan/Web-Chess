@@ -1,21 +1,22 @@
 import {chess} from "./script.js"
+import {checkMove} from "./verifiesMoves.js"
 console.log(chess.ascii())
 
 const board = document.querySelector("#chess-board")
 
 
 function getBoardCoords(e){
-    const boardRect = board.getBoundingClientRect();
-    const numCols = 8; 
+    const boardRect = board.getBoundingClientRect()
+    const numCols = 8
     
-    const cellWidth = boardRect.width / numCols;
-    const cellHeight = boardRect.height / numCols;
+    const cellWidth = boardRect.width / numCols
+    const cellHeight = boardRect.height / numCols
     
-    const xInsideBoard = e.clientX - boardRect.left;
-    const yInsideBoard = e.clientY - boardRect.bottom;
+    const xInsideBoard = e.clientX - boardRect.left
+    const yInsideBoard = e.clientY - boardRect.bottom
     
-    const coordX = Math.floor(xInsideBoard / cellWidth) + 1;
-    const coordY = Math.floor(yInsideBoard / cellHeight) * -1;
+    const coordX = Math.floor(xInsideBoard / cellWidth) + 1
+    const coordY = Math.floor(yInsideBoard / cellHeight) * -1
 
     return {"x": coordX, "y": coordY}
 }
@@ -26,6 +27,44 @@ function translateCoords(dict){
     return `${letters[dict.x-1]}${String(dict.y)}`
 }
 
+function getPieceType(e){
+    let pieceType
+    if (e.target.classList.contains('pieces')) {
+        pieceType = e.target.classList[1];
+    }else{
+        pieceType = undefined
+    }
+    return pieceType
+}
+
+function getCoordPieceType(coord, pieceType){
+    if (pieceType !== undefined){
+        let types = ['brq', 'wrq', 'brk', 'wrk',
+                    'bnq', 'wnq', 'bnk', 'wnk',
+                    'bbq', 'wbq', 'bbk', 'wbk',
+                    'bq', 'wq', 'bk', 'wk', 'bp', 'wp'
+        ]
+        for (let i = 0; i < types.length; i++){
+            if (pieceType === types[i]){
+                if (i < 4){
+                    return `R${coord}`
+                }else if(i < 8){
+                    return `N${coord}`
+                }else if(i < 12){
+                    return `B${coord}`
+                }else if(i < 14){
+                    return `Q${coord}`
+                }else if(i < 16){
+                    return `K${coord}`
+                }else{
+                    return coord
+                }
+            }
+        }
+    }else{
+        return undefined
+    }
+}
 
 function selectedBg(coord){
     let element = document.querySelector(`.${coord}`)
@@ -48,48 +87,55 @@ function movedBg(coord){
 }
 
 
-function movePiece(Pcoord, Scoord){
-    let piece = document.querySelector(`.${Pcoord}`)
+export function movePiece(coordPiece, coordSquare){
+    let piece = document.querySelector(`.${coordPiece}`)
 
-    piece.classList.remove(Pcoord)
-    piece.classList.add(Scoord)
+    chess.move({from: `${coordPiece}`, to: `${coordSquare}`})
 
-    movedBg(Pcoord)
+    piece.classList.remove(coordPiece)
+    piece.classList.add(coordSquare)
+
+    movedBg(coordPiece)
 }
 
 var selectedPiece
+var pieceTypeStored
 
-function checkMove(coord){
-    let element = document.querySelector(`.${coord}:not(.moved)`) ?? document.querySelector("#chess-board");
+function captureMove(coord, pieceType){
+    let element = document.querySelector(`.${coord}:not(.moved)`) ?? document.querySelector("#chess-board")
     if (!(element.classList.contains('pieces'))) {
         if (selectedPiece != null && selectedPiece != undefined){
-            movePiece(selectedPiece, coord)
+            let coordPieceType = getCoordPieceType(coord, pieceTypeStored)
+            checkMove(selectedPiece, coordPieceType, coord)
             selectedPiece = undefined
+            pieceTypeStored = undefined
         }
     } else{
         selectedBg(coord)
         selectedPiece = coord
+        pieceTypeStored = pieceType
     }
 }
 
 
 board.addEventListener('mousedown', (e) => {
-    if (e.button !== 0) return;
+    if (e.button !== 0) return
     let coords = getBoardCoords(e)
     let translatedCoords = translateCoords(coords)
-    checkMove(translatedCoords)
-    // console.log(translatedCoords)
-});
+    let pieceType = getPieceType(e)
+    captureMove(translatedCoords, pieceType)
+})
 
 
 board.addEventListener('drop', (e) => {
     let coords = getBoardCoords(e)
     let translatedCoords = translateCoords(coords)
-    // console.log(translatedCoords)
-});
+    let pieceType = getPieceType(e)
+    captureMove(translatedCoords, pieceType)
+})
 
 
 board.addEventListener('dragover', (e) => {
     e.preventDefault(); 
-    e.dataTransfer.dropEffect = "move"; 
-});
+    e.dataTransfer.dropEffect = "move"
+})
