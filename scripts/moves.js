@@ -1,5 +1,5 @@
 import {chess} from "./script.js"
-import {checkMove, possibleMoves, removePossibleMove} from "./verifiesMoves.js"
+import {checkMove, checkAttack, possibleMoves, removePossibleMove} from "./verifiesMoves.js"
 console.log(chess.ascii())
 
 export const board = document.querySelector("#chess-board")
@@ -109,7 +109,6 @@ export function movePiece(coordPiece, coordSquare){
     movedPieceBg(coordSquare)
     selectedPiece = undefined
     pieceTypeStored = undefined
-    console.log(chess.ascii()) // ----------------------------------------------
 }
 
 var selectedPiece
@@ -130,10 +129,16 @@ function captureMove(coord, pieceType){
     }
 }
 
+function captureAttack(attackerCoord, eliminatedCoord) {
+    
+}
+
+var attack
 
 board.addEventListener('mousedown', (e) => {
     if (e.button !== 0) return
-    if (e.target.classList.contains(`${chess.turn()}`) || e.target.id == 'chess-board'){
+    var attack = checkAttack()
+    if (e.target.classList.contains(`${chess.turn()}`) || e.target.id == 'chess-board' || attack === true){
         let coords = getBoardCoords(e)
         let translatedCoords = translateCoords(coords)
         let pieceType = getPieceType(e)
