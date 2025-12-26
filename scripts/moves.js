@@ -21,7 +21,6 @@ function getBoardCoords(e){
     return {"x": coordX, "y": coordY}
 }
 
-
 function translateCoords(dict){
     let letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
     return `${letters[dict.x-1]}${String(dict.y)}`
