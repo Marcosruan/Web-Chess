@@ -26,22 +26,44 @@ function getHistory(currentFen){
     return history.at(-1)
 }
 
-function movePiece(currentPieceCoord, nextPieceCoord){
-    let piece = document.querySelector(`.${currentPieceCoord}`)
+var pieceToRemove
+var enPassantAttack
 
+function movePiece(currentPieceCoord, nextPieceCoord) {
+    let pieceElement = document.querySelector(`.${currentPieceCoord}`)
     try {
-        chess.move({from: `${currentPieceCoord}`, to: `${nextPieceCoord}`})
-    
-        piece.classList.remove(currentPieceCoord)
-        piece.classList.add(nextPieceCoord)
+        const move = chess.move({ from: currentPieceCoord, to: nextPieceCoord, promotion: 'q' })
+        let enPassantFen = chess.fen().split(' ')[3]
+        if (enPassantFen !== '-'){
+            enPassantAttack = enPassantFen
+            let aux
+            aux = enPassantFen.split('')
+            if (chess.turn() === 'w'){
+                aux[1] = `${String(Number(aux[1]) - 1)}`
+            }else {
+                aux[1] = `${String(Number(aux[1]) + 1)}`
+            }
+            pieceToRemove = aux.join('')
+        }
+        if (move) {
+            if (move.captured) {
+                if (move.flags.includes('e')){
+                    enPassant(pieceToRemove)
+                }else{
+                    Capture(nextPieceCoord, pieceElement)
+                }
+            }
 
-        removePossibleMove()
-        movedBg(currentPieceCoord)
-        movedPieceBG(nextPieceCoord)
-        selectedPiece = undefined
+            pieceElement.classList.remove(currentPieceCoord)
+            pieceElement.classList.add(nextPieceCoord)
 
+            removePossibleMove()
+            movedBg(currentPieceCoord)
+            movedPieceBG(nextPieceCoord)
+            selectedPiece = undefined
+        }
     } catch (error) {
-        console.log('Impossível fazer tal movimento')
+        console.log('Movimento inválido segundo as regras do xadrez', error)
     }
 }
 
@@ -52,9 +74,9 @@ function verifyMove(coord, pieceColor){
     if ((selectedPiece != null && selectedPiece != undefined) && !(chess.turn() === `${pieceColor}`)){
         movePiece(selectedPiece, coord)
     } else if (element.classList.contains('pieces')){
-    removePossibleMove()
-    selectedPieceBG(coord)
-    selectedPiece = coord
+        removePossibleMove()
+        selectedPieceBG(coord)
+        selectedPiece = coord
     }
 }
 
@@ -191,7 +213,27 @@ function verifyAttackedPiece(possibleMoveElement){
         }else{
             possibleMoveElement.classList.add('possibleMove')
         }
-    });
+    })
+    if (enPassantAttack){
+        possibleMoveElement.classList.add('possibleCapture')
+        enPassantAttack = undefined
+    }
+}
+
+function Capture(coord, pieceMovedElement) {
+    const potentialVictims = document.querySelectorAll(`.pieces.${coord}`)
+
+    potentialVictims.forEach(victim => {
+        if (victim !== pieceMovedElement) {
+            victim.remove()
+        }
+    })
+}
+
+function enPassant(coord) {
+    const victim = document.querySelector(`.${coord}`)
+    if (!victim) return
+    victim.remove()
 }
 
 function removePossibleMove(){

@@ -12,6 +12,7 @@
 }
 
 .possibleMove, .possibleCapture{
+    --pieces-width: 12.5vw;
     display: block;
     height: 12.5vw;
     width: 12.5vw;
@@ -149,4 +150,10 @@
 
 .moved, .movedPiece{
     background-color: rgba(236, 236, 82, 0.644);
+}
+
+.captured{
+    display: none;
+    left: -1000;
+    top: 0;
 }

@@ -17,6 +17,7 @@
     height: 12.5vw;
     width: 100vw;
     border-bottom: var(--cores-gray-sublinha) solid 1px;
+    border-radius: 7px;
 }
 
 #player-bar{
