@@ -125,15 +125,14 @@ function translateCoords(dict){
     return `${letters[dict.x-1]}${String(dict.y)}`
 }
 
-function getpieceColor(e){
-    let pieceColor
+function getpieceColor(e) {
     if (e.target.classList.contains('pieces')) {
-        pieceColor = e.target.classList[2];
-    }else{
-        pieceColor = undefined
+        if (e.target.classList.contains('w')) return 'w';
+        if (e.target.classList.contains('b')) return 'b';
     }
-    return pieceColor
+    return undefined;
 }
+
 
 function selectedPieceBG(coord){
     removeSelectedPieceBG()
@@ -167,7 +166,7 @@ function movedPieceBG(coord){
 }
 
 addEventListener('mousedown', (e) => {
-    if (e.target.classList[0] !== 'pieces' || (e.target.classList[2] !== chess.turn())){
+    if (e.target.classList[0] !== 'pieces' || (e.target.classList[1] !== chess.turn())){
         removeSelectedPieceBG()
         removePossibleMove()
     }
@@ -207,10 +206,11 @@ function possibleMoves(currentPieceCoord){
 
 function verifyAttackedPiece(possibleMoveElement){
     const pieces = document.querySelectorAll('.pieces')
+    const coord = possibleMoveElement.classList[0]
     pieces.forEach(divPiece => {
-        if (possibleMoveElement.classList[0] === divPiece.classList[1]){
+        if (divPiece.classList.contains(coord)){
             possibleMoveElement.classList.add('possibleCapture')
-        }else if (possibleMoveElement.classList[0] === enPassantAttack){
+        }else if (coord === enPassantAttack){
             possibleMoveElement.classList.add('possibleCapture')
         }else{
             possibleMoveElement.classList.add('possibleMove')
