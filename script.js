@@ -133,7 +133,6 @@ function getpieceColor(e) {
     return undefined;
 }
 
-
 function selectedPieceBG(coord){
     removeSelectedPieceBG()
     let element = document.querySelector(`.${coord}`)
@@ -196,11 +195,23 @@ board.addEventListener('dragover', (e) => {
 
 function possibleMoves(currentPieceCoord){
     let lista = chess.moves({square: `${currentPieceCoord}`})
+    let queenSide = false
+    lista.forEach(coord => {
+        if (coord === 'O-O'){
+            possibleRook(queenSide)
+        }else if (coord === 'O-O-O'){
+            queenSide = true
+            possibleRook(queenSide)
+        }
+    })
+    console.log(lista)
     for (let i = 0; i < lista.length; i++){
         let square = lista[i].split((re))[1]
-        let element = Object.assign(document.createElement("div"), { className: `${square}`})
-        board.appendChild(element)
-        verifyAttackedPiece(element)
+        if (square !== undefined){
+            let element = Object.assign(document.createElement("div"), { className: `${square}`})
+            board.appendChild(element)
+            verifyAttackedPiece(element)
+        }
     }
 }
 
@@ -235,8 +246,28 @@ function enPassant(coord) {
 }
 
 function removePossibleMove(){
-    let element = document.querySelectorAll('.possibleMove, .possibleCapture')
+    let element = document.querySelectorAll('.possibleMove, .possibleCapture, .castling')
     element.forEach(div => {
         div.remove()
     })
+}
+
+function possibleRook(queenSide){
+    let turn = chess.turn()
+    let coord
+    if (queenSide){
+        if (turn === 'w'){
+            coord = 'c1'
+        }else{
+            coord = 'c8'
+        }
+    }else {
+        if (turn === 'w'){
+            coord = 'g1'
+        }else{
+            coord = 'g8'
+        }
+    }
+    let element = Object.assign(document.createElement("div"), { className: `${coord} castling`})
+    board.appendChild(element)
 }

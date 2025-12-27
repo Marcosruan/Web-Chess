@@ -11,7 +11,7 @@
     background-size: 100%;
 }
 
-.possibleMove, .possibleCapture{
+.possibleMove, .possibleCapture, .castling{
     --pieces-width: 12.5vw;
     display: block;
     height: 12.5vw;
@@ -28,10 +28,14 @@
     transform: scale(0.4);
 }
 
-.possibleCapture{
+.possibleCapture, .castling{
     background-color: transparent;
     border: solid rgba(223, 49, 26, 0.562) 7px;
     transform: scale(1);
+}
+
+.castling{
+    border: solid rgba(18, 126, 18, 0.562) 7px;
 }
 
 @media (min-width: 601px) and (max-width: 1024px){
@@ -41,7 +45,7 @@
         width: 10vw;
 
     }
-    .possibleMove, .possibleCapture{
+    .possibleMove, .possibleCapture, .castling{
         --pieces-width: 10vw;
         height: 10vw;
         width: 10vw;
@@ -55,7 +59,7 @@
         width: 4.1725vw;
     }
     
-    .possibleMove, .possibleCapture{
+    .possibleMove, .possibleCapture, .castling{
         --pieces-width: 4.1725vw;
         height: 4.1725vw;
         width: 4.1725vw;
