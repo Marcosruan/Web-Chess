@@ -3,9 +3,9 @@ import { Chess } from 'https://cdn.jsdelivr.net/npm/chess.js@1.0.0-beta.8/+esm';
 export const chess = new Chess()
 export const board = document.querySelector("#chess-board")
 
-console.log(chess.ascii())
-console.log(chess.fen())
-var history = ['rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR']
+// console.log(chess.ascii())
+// console.log(chess.fen())
+// var history = ['rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR']
 var re = /([a-z]\d)/
 
 // function verifyFen(){
@@ -128,7 +128,7 @@ function translateCoords(dict){
 function getpieceColor(e){
     let pieceColor
     if (e.target.classList.contains('pieces')) {
-        pieceColor = e.target.classList[1];
+        pieceColor = e.target.classList[2];
     }else{
         pieceColor = undefined
     }
@@ -167,7 +167,7 @@ function movedPieceBG(coord){
 }
 
 addEventListener('mousedown', (e) => {
-    if (e.target.classList[0] !== 'pieces' || (e.target.classList[1] !== chess.turn())){
+    if (e.target.classList[0] !== 'pieces' || (e.target.classList[2] !== chess.turn())){
         removeSelectedPieceBG()
         removePossibleMove()
     }
@@ -208,21 +208,19 @@ function possibleMoves(currentPieceCoord){
 function verifyAttackedPiece(possibleMoveElement){
     const pieces = document.querySelectorAll('.pieces')
     pieces.forEach(divPiece => {
-        if (possibleMoveElement.classList[0] === divPiece.classList[4]){
+        if (possibleMoveElement.classList[0] === divPiece.classList[1]){
+            possibleMoveElement.classList.add('possibleCapture')
+        }else if (possibleMoveElement.classList[0] === enPassantAttack){
             possibleMoveElement.classList.add('possibleCapture')
         }else{
             possibleMoveElement.classList.add('possibleMove')
         }
     })
-    if (enPassantAttack){
-        possibleMoveElement.classList.add('possibleCapture')
-        enPassantAttack = undefined
-    }
 }
 
 function Capture(coord, pieceMovedElement) {
     const potentialVictims = document.querySelectorAll(`.pieces.${coord}`)
-
+    
     potentialVictims.forEach(victim => {
         if (victim !== pieceMovedElement) {
             victim.remove()
@@ -237,8 +235,8 @@ function enPassant(coord) {
 }
 
 function removePossibleMove(){
-    let element = document.querySelectorAll('.possibleMove')
+    let element = document.querySelectorAll('.possibleMove, .possibleCapture')
     element.forEach(div => {
         div.remove()
-    });
+    })
 }
