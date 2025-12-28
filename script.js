@@ -29,23 +29,34 @@ function getHistory(currentFen){
 var pieceToRemove
 var enPassantAttack
 
+function verifyEnPassant(){
+    let enPassantFen = chess.fen().split(' ')[3]
+    if (enPassantFen !== '-'){
+        enPassantAttack = enPassantFen
+        let aux
+        aux = enPassantFen.split('')
+        if (chess.turn() === 'w'){
+            aux[1] = `${String(Number(aux[1]) - 1)}`
+        }else {
+            aux[1] = `${String(Number(aux[1]) + 1)}`
+        }
+        pieceToRemove = aux.join('')
+    }
+}
+
 function movePiece(currentPieceCoord, nextPieceCoord) {
     let pieceElement = document.querySelector(`.${currentPieceCoord}`)
     try {
         const move = chess.move({ from: currentPieceCoord, to: nextPieceCoord, promotion: 'q' })
-        let enPassantFen = chess.fen().split(' ')[3]
-        if (enPassantFen !== '-'){
-            enPassantAttack = enPassantFen
-            let aux
-            aux = enPassantFen.split('')
-            if (chess.turn() === 'w'){
-                aux[1] = `${String(Number(aux[1]) - 1)}`
-            }else {
-                aux[1] = `${String(Number(aux[1]) + 1)}`
-            }
-            pieceToRemove = aux.join('')
-        }
+
+        verifyEnPassant()
+
         if (move) {
+            if (move.flags.includes('k')){
+                castling('k')
+            }else if (move.flags.includes('q')){
+                castling('q')
+            }
             if (move.captured) {
                 if (move.flags.includes('e')){
                     enPassant(pieceToRemove)
@@ -204,7 +215,6 @@ function possibleMoves(currentPieceCoord){
             possibleRook(queenSide)
         }
     })
-    console.log(lista)
     for (let i = 0; i < lista.length; i++){
         let square = lista[i].split((re))[1]
         if (square !== undefined){
@@ -270,4 +280,28 @@ function possibleRook(queenSide){
     }
     let element = Object.assign(document.createElement("div"), { className: `${coord} castling`})
     board.appendChild(element)
+}
+
+function castling(castlingSide){
+    let side, coord
+    if (castlingSide === 'k'){
+        if (chess.turn() === 'b'){
+            side = 'f1'
+            coord = 'h1'
+        }else {
+            side = 'f8'
+            coord = 'h8'
+        }
+    }else if(castlingSide === 'q'){
+        if (chess.turn() === 'b'){
+            side = 'd1'
+            coord = 'a1'
+        }else {
+            side = 'd8'
+            coord = 'a8'
+        }
+    }
+    let element = document.querySelector(`.${coord}`)
+    element.classList.remove(coord)
+    element.classList.add(side)
 }
