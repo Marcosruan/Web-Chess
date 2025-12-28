@@ -2,11 +2,12 @@ import { Chess } from 'https://cdn.jsdelivr.net/npm/chess.js@1.0.0-beta.8/+esm';
 
 export const chess = new Chess()
 export const board = document.querySelector("#chess-board")
+var re = /([a-z]\d)/
 
 // console.log(chess.ascii())
 // console.log(chess.fen())
 // var history = ['rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR']
-var re = /([a-z]\d)/
+
 
 // function verifyFen(){
 //     let i = 0, index = 0
@@ -20,6 +21,30 @@ var re = /([a-z]\d)/
 //     }
 // }
 
+function verifyGameOver(){
+    let halvesMoves = chess.fen().split(' ')[4]
+    if (chess.isGameOver()){
+        if (chess.isCheckmate()){
+            if (chess.turn() === 'w'){
+                let king = document.querySelector('.K')
+                king.classList.add('checkmate')
+            }else{
+                let king = document.querySelector('.k')
+                king.classList.add('checkmate')
+            }
+        }else if (chess.isDraw()){
+            if(chess.isInsufficientMaterial()){
+                console.log('draw by insuficient material')
+            }else if (halvesMoves >= 100){
+                console.log('draw by fifty moves')
+            }else if (chess.isStalemate()){
+                console.log('stalemate')
+            }else if (chess.isThreefoldRepetition()){
+            console.log('three fold repetition')
+            }
+        }
+    }
+}
 
 function getHistory(currentFen){
     history.push(currentFen.split(' ')[0])
@@ -44,10 +69,26 @@ function verifyEnPassant(){
     }
 }
 
-function movePiece(currentPieceCoord, nextPieceCoord) {
-    let pieceElement = document.querySelector(`.${currentPieceCoord}`)
+function verifyCheck(){
+    let kingInCheck = document.querySelector('.check')
+    if (kingInCheck) kingInCheck.classList.remove('check') 
+    if (chess.inCheck() && !(chess.isCheckmate())){
+        if (chess.turn() === 'w'){
+            let king = document.querySelector('.K')
+            king.classList.add('check')
+        }else{
+            let king = document.querySelector('.k')
+            king.classList.add('check')
+        }
+    }
+}
+
+function verifyMovementInfo(currentPieceCoord, nextPieceCoord) {
     try {
+        let pieceElement = document.querySelector(`.${currentPieceCoord}`)
         const move = chess.move({ from: currentPieceCoord, to: nextPieceCoord, promotion: 'q' })
+
+        verifyCheck()
 
         verifyEnPassant()
 
@@ -64,18 +105,22 @@ function movePiece(currentPieceCoord, nextPieceCoord) {
                     Capture(nextPieceCoord, pieceElement)
                 }
             }
-
-            pieceElement.classList.remove(currentPieceCoord)
-            pieceElement.classList.add(nextPieceCoord)
-
-            removePossibleMove()
-            movedBg(currentPieceCoord)
-            movedPieceBG(nextPieceCoord)
-            selectedPiece = undefined
+            movePiece(currentPieceCoord, nextPieceCoord, pieceElement)
         }
     } catch (error) {
         console.log('Movimento inválido segundo as regras do xadrez', error)
     }
+}
+
+function movePiece(currentPieceCoord, nextPieceCoord, pieceElement){
+    pieceElement.classList.remove(currentPieceCoord)
+    pieceElement.classList.add(nextPieceCoord)
+
+    removePossibleMove()
+    movedBg(currentPieceCoord)
+    movedPieceBG(nextPieceCoord)
+    selectedPiece = undefined
+    verifyGameOver()
 }
 
 var selectedPiece
@@ -83,7 +128,7 @@ var selectedPiece
 function verifyMove(coord, pieceColor){
     let element = document.querySelector(`.${coord}:not(.moved)`) ?? document.querySelector("#chess-board")
     if ((selectedPiece != null && selectedPiece != undefined) && !(chess.turn() === `${pieceColor}`)){
-        movePiece(selectedPiece, coord)
+        verifyMovementInfo(selectedPiece, coord)
     } else if (element.classList.contains('pieces')){
         removePossibleMove()
         selectedPieceBG(coord)
