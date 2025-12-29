@@ -55,53 +55,29 @@
 }
 
 /* ♖ */
-.brq{
+.br{
     background: no-repeat center/100% url(/assets/pieces/rook-b.svg);
 }
 
-.wrq{
-    background: no-repeat center/100% url(/assets/pieces/rook-w.svg);
-}
-
-.brk{
-    background: no-repeat center/100% url(/assets/pieces/rook-b.svg);
-}
-
-.wrk{
+.wr{
     background: no-repeat center/100% url(/assets/pieces/rook-w.svg);
 }
 
 /* ♘ */
-.bnq{
+.bn{
     background: no-repeat center/100% url(/assets/pieces/knight-b.svg);
 }
 
-.wnq{
-    background: no-repeat center/100% url(/assets/pieces/knight-w.svg);
-}
-
-.bnk{
-    background: no-repeat center/100% url(/assets/pieces/knight-b.svg);
-}
-
-.wnk{
+.wn{
     background: no-repeat center/100% url(/assets/pieces/knight-w.svg);
 }
 
 /* ♗ */
-.bbq{
+.bb{
     background: no-repeat center/100% url(/assets/pieces/bishop-b.svg);
 }
 
-.wbq{
-    background: no-repeat center/100% url(/assets/pieces/bishop-w.svg);
-}
-
-.bbk{
-    background: no-repeat center/100% url(/assets/pieces/bishop-b.svg);
-}
-
-.wbk{
+.wb{
     background: no-repeat center/100% url(/assets/pieces/bishop-w.svg);
 }
 
@@ -133,7 +109,7 @@
 }
 
 .invisible{
-    visibility: hidden;
+    opacity: 0;
 }
 
 .moved, .movedPiece{
@@ -167,4 +143,16 @@
     border: none;
     border-radius: 0;
     clip-path: none;
+    mask: none;
+}
+
+ul.promotionList{
+    height: calc(var(--pieces-width) * 4);
+    background-color: #9b9a9a;
+    box-shadow: 2px 2px 5px rgb(54, 54, 54);
+}
+
+li.promotionItem{
+    position: static !important;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }

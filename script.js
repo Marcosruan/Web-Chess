@@ -83,10 +83,51 @@ function verifyCheck(){
     }
 }
 
+function verifyPromotion(currentPieceCoord, nextPieceCoord){
+    let pawn = document.querySelector(`.${currentPieceCoord}`)
+    if (!pawn.matches('.p, .P')) return false
+
+    let lista = chess.moves({square: `${currentPieceCoord}`})
+    lista.forEach(coord => {
+        let square = coord.split((re))[1]
+        let i = 0
+        if (square){
+            if (nextPieceCoord === square) i++
+        }
+        if (!i) return false
+    })
+
+    let sevenths = /(^[a-h]7$)/
+    let eighths = /(^[a-h]8$)/
+    return sevenths.test(`${currentPieceCoord}`) && eighths.test(`${nextPieceCoord}`)
+}
+
+// function getPieceType(nextPieceCoord){
+//     let ul = Object.assign(document.createElement("ul"), { className: `${nextPieceCoord}`})
+//     board.appendChild(ul)
+//     let promotions = ['bb', 'br', 'bn', 'bq', 'wq', 'wn', 'wr', 'wb']
+//     let j
+//     if (chess.turn() === 'w'){
+//         j = 4
+//     }else {
+//         j = 0
+//     }
+//     for (let i = 0; i < 4; i++){
+//         let li = Object.assign(document.createElement("ul"), { className: `${promotions[j++]}`})
+//         ul.appendChild(li)
+//     }
+// }
+
 function verifyMovementInfo(currentPieceCoord, nextPieceCoord) {
     try {
         let pieceElement = document.querySelector(`.${currentPieceCoord}`)
-        const move = chess.move({ from: currentPieceCoord, to: nextPieceCoord, promotion: 'q' })
+        let move
+        if (verifyPromotion(currentPieceCoord, nextPieceCoord)){
+            let pieceType = getPieceType(nextPieceCoord)
+            move = chess.move({ from: currentPieceCoord, to: nextPieceCoord, promotion: `${pieceType}` })
+        }else{
+            move = chess.move({ from: currentPieceCoord, to: nextPieceCoord})
+        }
 
         verifyCheck()
 
