@@ -97,34 +97,76 @@ function verifyPromotion(currentPieceCoord, nextPieceCoord){
         if (!i) return false
     })
 
+    let firsts = /(^[a-h]1$)/
+    let seconds = /(^[a-h]2$)/
     let sevenths = /(^[a-h]7$)/
     let eighths = /(^[a-h]8$)/
-    return sevenths.test(`${currentPieceCoord}`) && eighths.test(`${nextPieceCoord}`)
+    return (sevenths.test(`${currentPieceCoord}`) && eighths.test(`${nextPieceCoord}`)) || (seconds.test(`${currentPieceCoord}`) && firsts.test(`${nextPieceCoord}`))
 }
 
-// function getPieceType(nextPieceCoord){
-//     let ul = Object.assign(document.createElement("ul"), { className: `${nextPieceCoord}`})
-//     board.appendChild(ul)
-//     let promotions = ['bb', 'br', 'bn', 'bq', 'wq', 'wn', 'wr', 'wb']
-//     let j
-//     if (chess.turn() === 'w'){
-//         j = 4
-//     }else {
-//         j = 0
-//     }
-//     for (let i = 0; i < 4; i++){
-//         let li = Object.assign(document.createElement("ul"), { className: `${promotions[j++]}`})
-//         ul.appendChild(li)
-//     }
-// }
+function createPromotionList(nextPieceCoord){
+    let promotions = ['bb', 'br', 'bn', 'bq', 'wq', 'wn', 'wr', 'wb']
+    let ulCoord
+    let j
+    if (chess.turn() === 'b'){
+        j = 0
+        ulCoord = nextPieceCoord
+    }else {
+        let aux
+        aux = nextPieceCoord.split('')
+        aux[1] = `${String(Number(aux[1]) - 3)}`
+        ulCoord = aux.join('')
+        j = 4
+    }
+    let ul = Object.assign(document.createElement("ul"), { className: `pieces promotionList ${ulCoord}`})
+    board.appendChild(ul)
+    for (let i = 0; i < 4; i++){
+        let li = Object.assign(document.createElement("li"), { className: `${promotions[j++]} pieces promotionItem `})
+        ul.appendChild(li)
+    }
+    return ul
+}
 
-function verifyMovementInfo(currentPieceCoord, nextPieceCoord) {
+function deletePromotionList(){
+    let ul = document.querySelector('.promotionList')
+    if (ul) ul.remove()
+}
+
+async function getPieceType(nextPieceCoord) {
+    const ul = createPromotionList(nextPieceCoord);
+    ul.addEventListener('mousedown', (e) => {
+        console.log(e.target)
+    })
+    return new Promise((resolve) => {
+        ul.addEventListener('mousedown', (e) => {
+            let pieceType = e.target.classList[0]
+            resolve(pieceType)
+        }, { once: true })
+    })
+}
+
+async function updatePiecePromotion(currentPieceCoord, nextPieceCoord, pieceElement){
+    let move
+    let pieceType = await getPieceType(nextPieceCoord)
+    deletePromotionList()
+    move = chess.move({ from: currentPieceCoord, to: nextPieceCoord, promotion: `${pieceType.split('')[1]}` })
+    if (chess.turn() === 'b'){
+        pieceElement.classList.remove('wp')
+        pieceElement.classList.add(`${pieceType}`)
+    }else{
+        pieceElement.classList.remove('bp')
+        pieceElement.classList.add(`${pieceType}`)
+    }
+    return move
+}
+
+async function verifyMovementInfo(currentPieceCoord, nextPieceCoord) {
     try {
         let pieceElement = document.querySelector(`.${currentPieceCoord}`)
         let move
         if (verifyPromotion(currentPieceCoord, nextPieceCoord)){
-            let pieceType = getPieceType(nextPieceCoord)
-            move = chess.move({ from: currentPieceCoord, to: nextPieceCoord, promotion: `${pieceType}` })
+            move = await updatePiecePromotion(currentPieceCoord, nextPieceCoord, pieceElement)
+            console.log(chess.fen())
         }else{
             move = chess.move({ from: currentPieceCoord, to: nextPieceCoord})
         }
@@ -166,10 +208,10 @@ function movePiece(currentPieceCoord, nextPieceCoord, pieceElement){
 
 var selectedPiece
 
-function verifyMove(coord, pieceColor){
+async function verifyMove(coord, pieceColor){
     let element = document.querySelector(`.${coord}:not(.moved)`) ?? document.querySelector("#chess-board")
     if ((selectedPiece != null && selectedPiece != undefined) && !(chess.turn() === `${pieceColor}`)){
-        verifyMovementInfo(selectedPiece, coord)
+        await verifyMovementInfo(selectedPiece, coord)
     } else if (element.classList.contains('pieces')){
         removePossibleMove()
         selectedPieceBG(coord)
