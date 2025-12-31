@@ -354,7 +354,7 @@ function possibleMoves(currentPieceCoord){
 }
 
 function verifyAttackedPiece(possibleMoveElement){
-    const pieces = document.querySelectorAll('.pieces')
+    const pieces = document.querySelectorAll('.pieces:not(.moved)')
     const coord = possibleMoveElement.classList[0]
     pieces.forEach(divPiece => {
         if (divPiece.classList.contains(coord)){
