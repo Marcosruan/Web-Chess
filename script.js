@@ -110,12 +110,12 @@ function createPromotionList(nextPieceCoord){
     let j
     if (chess.turn() === 'b'){
         j = 0
-        ulCoord = nextPieceCoord
-    }else {
         let aux
         aux = nextPieceCoord.split('')
-        aux[1] = `${String(Number(aux[1]) - 3)}`
+        aux[1] = `${String(Number(aux[1]) + 3)}`
         ulCoord = aux.join('')
+    }else {
+        ulCoord = nextPieceCoord
         j = 4
     }
     let ul = Object.assign(document.createElement("ul"), { className: `pieces promotionList ${ulCoord}`})

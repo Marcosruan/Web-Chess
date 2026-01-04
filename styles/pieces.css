@@ -12,8 +12,7 @@
     background-size: 100%;
 }
 
-.possibleMove, .possibleCapture, .castling, .check, .checkmate{
-    --pieces-width: 12.5vw;
+.possibleMove, .possibleCapture, .castling{
     display: block;
     height: 12.5vw;
     width: 12.5vw;
@@ -40,7 +39,7 @@
 }
 
 @media (min-width: 601px) and (max-width: 1024px){
-    .pieces, .possibleMove, .possibleCapture, .castling, .check, .checkmate{
+    .pieces, .possibleMove, .possibleCapture, .castling{
         --pieces-width: 10vw;
         height: 10vw;
         width: 10vw;
@@ -48,11 +47,66 @@
 }
 
 @media (min-width: 1025px){
-    .pieces, .possibleMove, .possibleCapture, .castling, .check, .checkmate{
+    .pieces, .possibleMove, .possibleCapture, .castling{
         --pieces-width: 4.1725vw;
         height: 4.1725vw;
         width: 4.1725vw;
     }
+}
+
+.invisible{
+    opacity: 0;
+}
+
+.captured{
+    display: none;
+    left: -1000;
+    top: 0;
+}
+
+.pieces.check, .pieces.checkmate {
+    position: relative;
+}
+
+.pieces.check::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 3px solid rgba(255, 0, 0, 0.8);
+    box-sizing: border-box;
+    box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.5);
+    pointer-events: none;
+    border-radius: 50%;
+}
+
+.pieces.checkmate::before {
+    border-radius: 50%;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 0, 0, 0.5);
+    
+    clip-path: polygon(0% 20%, 20% 20%, 20% 0%, 40% 0%, 40% 20%, 60% 20%, 60% 0%, 80% 0%, 80% 20%, 100% 20%, 100% 40%, 80% 40%, 80% 60%, 100% 60%, 100% 80%, 80% 80%, 80% 100%, 60% 100%, 60% 80%, 40% 80%, 40% 100%, 20% 100%, 20% 80%, 0% 80%, 0% 60%, 20% 60%, 20% 40%, 0% 40%);
+    
+    pointer-events: none;
+    z-index: 2;
+}
+
+ul.promotionList{
+    height: calc(var(--pieces-width) * 4);
+    background-color: #9b9a9a;
+    box-shadow: 2px 2px 5px rgb(54, 54, 54);
+}
+
+li.promotionItem{
+    position: static !important;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 /* ♖ */
@@ -109,83 +163,19 @@
     background: no-repeat center/100% url(/assets/pieces/pawn-w.svg);
 }
 
-.invisible{
-    opacity: 0;
+.selected{
+    background-color: rgb(175, 205, 250);
+    border-radius: 0;
+    clip-path: none;
+    mask: none;
+    transform: scale(1.05);
+    &.pieces.check::before{
+        border: none;
+        box-shadow: none;
+    }
 }
 
 .moved, .movedPiece{
     background-color: rgba(236, 236, 82, 0.644);
-}
-
-.captured{
-    display: none;
-    left: -1000;
-    top: 0;
-}
-
-.pieces.check, .pieces.checkmate {
-    position: relative;
-}
-
-.pieces.check::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 5px solid rgba(255, 0, 0, 0.8);
-    box-sizing: border-box;
-    box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.5);
-    pointer-events: none;
-}
-
-.pieces.checkmate::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 0, 0, 0.4);
-    
-    clip-path: polygon(0% 20%, 20% 20%, 20% 0%, 40% 0%, 40% 20%, 60% 20%, 60% 0%, 80% 0%, 80% 20%, 100% 20%, 100% 40%, 80% 40%, 80% 60%, 100% 60%, 100% 80%, 80% 80%, 80% 100%, 60% 100%, 60% 80%, 40% 80%, 40% 100%, 20% 100%, 20% 80%, 0% 80%, 0% 60%, 20% 60%, 20% 40%, 0% 40%);
-    
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* .check{
-    border-radius: none;
-    background-color: transparent;
-    border: rgba(255, 0, 0, 0.8) solid 5px;
-    mask: 
-    conic-gradient(at 20px 20px, #000000 75%, #0000 0) 0 0 / calc(100% - 20px) calc(100% - 20px),
-    linear-gradient(transparent 0 0) content-box;
-    mask-composite: exclude;
-}
-
-.checkmate{
-    border-radius: 40%;
-    background-color: rgba(255, 0, 0, 0.7);
-    clip-path: polygon(0% 20%, 20% 20%, 20% 0%, 40% 0%, 40% 20%, 60% 20%, 60% 0%, 80% 0%, 80% 20%, 100% 20%, 100% 40%, 80% 40%, 80% 60%, 100% 60%, 100% 80%, 80% 80%, 80% 100%, 60% 100%, 60% 80%, 40% 80%, 40% 100%, 20% 100%, 20% 80%, 0% 80%, 0% 60%, 20% 60%, 20% 40%, 0% 40%);
-} */
-
-.selected{
-    background-color: rgb(175, 205, 250);
-    border: none;
-    border-radius: 0;
-    clip-path: none;
-    mask: none;
-}
-
-ul.promotionList{
-    height: calc(var(--pieces-width) * 4);
-    background-color: #9b9a9a;
-    box-shadow: 2px 2px 5px rgb(54, 54, 54);
-}
-
-li.promotionItem{
-    position: static !important;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
 }

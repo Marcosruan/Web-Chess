@@ -3,11 +3,9 @@
 @import url(pieces.css);
 @import url(mobile/board.css);
 @import url(mobile/log_panel.css);
-@import url(mobile/coords.css);
 @import url(tablets/board.css);
 @import url(tablets/log_panel.css);
-@import url(tablets/coords.css);
 @import url(desktops/board.css);
 @import url(desktops/log_panel.css);
-@import url(desktops/coords.css);
+@import url(coords.css);
 @import url(modal.css);
