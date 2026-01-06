@@ -1,8 +1,9 @@
 import { Chess } from 'https://cdn.jsdelivr.net/npm/chess.js@1.0.0-beta.8/+esm';
 
 export const chess = new Chess()
-export const board = document.querySelector("#chess-board")
-var re = /([a-z]\d)/
+export const COORD_REGEX = /([a-h][1-8])/
+
+// inacabadas ------------------------------------------------------------------------------------------
 
 // console.log(chess.ascii())
 // console.log(chess.fen())
@@ -21,207 +22,14 @@ var re = /([a-z]\d)/
 //     }
 // }
 
-function verifyGameOver(){
-    let halvesMoves = chess.fen().split(' ')[4]
-    if (chess.isGameOver()){
-        if (chess.isCheckmate()){
-            if (chess.turn() === 'w'){
-                let king = document.querySelector('.K')
-                king.classList.add('checkmate')
-            }else{
-                let king = document.querySelector('.k')
-                king.classList.add('checkmate')
-            }
-        }else if (chess.isDraw()){
-            if(chess.isInsufficientMaterial()){
-                console.log('draw by insuficient material')
-            }else if (halvesMoves >= 100){
-                console.log('draw by fifty moves')
-            }else if (chess.isStalemate()){
-                console.log('stalemate')
-            }else if (chess.isThreefoldRepetition()){
-            console.log('three fold repetition')
-            }
-        }
-    }
-}
-
 function getHistory(currentFen){
     history.push(currentFen.split(' ')[0])
     return history.at(-1)
 }
 
-var pieceToRemove
-var enPassantAttack
-
-function verifyEnPassant(){
-    let enPassantFen = chess.fen().split(' ')[3]
-    if (enPassantFen !== '-'){
-        enPassantAttack = enPassantFen
-        let aux
-        aux = enPassantFen.split('')
-        if (chess.turn() === 'w'){
-            aux[1] = `${String(Number(aux[1]) - 1)}`
-        }else {
-            aux[1] = `${String(Number(aux[1]) + 1)}`
-        }
-        pieceToRemove = aux.join('')
-    }
-}
-
-function verifyCheck(){
-    let kingInCheck = document.querySelector('.check')
-    if (kingInCheck) kingInCheck.classList.remove('check') 
-    if (chess.inCheck() && !(chess.isCheckmate())){
-        if (chess.turn() === 'w'){
-            let king = document.querySelector('.K')
-            king.classList.add('check')
-        }else{
-            let king = document.querySelector('.k')
-            king.classList.add('check')
-        }
-    }
-}
-
-function verifyPromotion(currentPieceCoord, nextPieceCoord){
-    let pawn = document.querySelector(`.${currentPieceCoord}`)
-    if (!pawn.matches('.p, .P')) return false
-
-    let lista = chess.moves({square: `${currentPieceCoord}`})
-    lista.forEach(coord => {
-        let square = coord.split((re))[1]
-        let i = 0
-        if (square){
-            if (nextPieceCoord === square) i++
-        }
-        if (!i) return false
-    })
-
-    let firsts = /(^[a-h]1$)/
-    let seconds = /(^[a-h]2$)/
-    let sevenths = /(^[a-h]7$)/
-    let eighths = /(^[a-h]8$)/
-    return (sevenths.test(`${currentPieceCoord}`) && eighths.test(`${nextPieceCoord}`)) || (seconds.test(`${currentPieceCoord}`) && firsts.test(`${nextPieceCoord}`))
-}
-
-function createPromotionList(nextPieceCoord){
-    let promotions = ['bb', 'br', 'bn', 'bq', 'wq', 'wn', 'wr', 'wb']
-    let ulCoord
-    let j
-    if (chess.turn() === 'b'){
-        j = 0
-        let aux
-        aux = nextPieceCoord.split('')
-        aux[1] = `${String(Number(aux[1]) + 3)}`
-        ulCoord = aux.join('')
-    }else {
-        ulCoord = nextPieceCoord
-        j = 4
-    }
-    let ul = Object.assign(document.createElement("ul"), { className: `pieces promotionList ${ulCoord}`})
-    board.appendChild(ul)
-    for (let i = 0; i < 4; i++){
-        let li = Object.assign(document.createElement("li"), { className: `${promotions[j++]} pieces promotionItem `})
-        ul.appendChild(li)
-    }
-    return ul
-}
-
-function deletePromotionList(){
-    let ul = document.querySelector('.promotionList')
-    if (ul) ul.remove()
-}
-
-async function getPieceType(nextPieceCoord) {
-    const ul = createPromotionList(nextPieceCoord);
-    ul.addEventListener('mousedown', (e) => {
-        console.log(e.target)
-    })
-    return new Promise((resolve) => {
-        ul.addEventListener('mousedown', (e) => {
-            let pieceType = e.target.classList[0]
-            resolve(pieceType)
-        }, { once: true })
-    })
-}
-
-async function updatePiecePromotion(currentPieceCoord, nextPieceCoord, pieceElement){
-    let move
-    let pieceType = await getPieceType(nextPieceCoord)
-    deletePromotionList()
-    move = chess.move({ from: currentPieceCoord, to: nextPieceCoord, promotion: `${pieceType.split('')[1]}` })
-    if (chess.turn() === 'b'){
-        pieceElement.classList.remove('wp')
-        pieceElement.classList.add(`${pieceType}`)
-    }else{
-        pieceElement.classList.remove('bp')
-        pieceElement.classList.add(`${pieceType}`)
-    }
-    return move
-}
-
-async function verifyMovementInfo(currentPieceCoord, nextPieceCoord) {
-    try {
-        let pieceElement = document.querySelector(`.${currentPieceCoord}`)
-        let move
-        if (verifyPromotion(currentPieceCoord, nextPieceCoord)){
-            move = await updatePiecePromotion(currentPieceCoord, nextPieceCoord, pieceElement)
-            console.log(chess.fen())
-        }else{
-            move = chess.move({ from: currentPieceCoord, to: nextPieceCoord})
-        }
-
-        verifyCheck()
-
-        verifyEnPassant()
-
-        if (move) {
-            if (move.flags.includes('k')){
-                castling('k')
-            }else if (move.flags.includes('q')){
-                castling('q')
-            }
-            if (move.captured) {
-                if (move.flags.includes('e')){
-                    enPassant(pieceToRemove)
-                }else{
-                    Capture(nextPieceCoord, pieceElement)
-                }
-            }
-            movePiece(currentPieceCoord, nextPieceCoord, pieceElement)
-        }
-    } catch (error) {
-        console.log('Movimento inválido segundo as regras do xadrez', error)
-    }
-}
-
-function movePiece(currentPieceCoord, nextPieceCoord, pieceElement){
-    pieceElement.classList.remove(currentPieceCoord)
-    pieceElement.classList.add(nextPieceCoord)
-
-    removePossibleMove()
-    movedBg(currentPieceCoord)
-    movedPieceBG(nextPieceCoord)
-    selectedPiece = undefined
-    verifyGameOver()
-}
-
-var selectedPiece
-
-async function verifyMove(coord, pieceColor){
-    let element = document.querySelector(`.${coord}:not(.moved)`) ?? document.querySelector("#chess-board")
-    if ((selectedPiece != null && selectedPiece != undefined) && !(chess.turn() === `${pieceColor}`)){
-        await verifyMovementInfo(selectedPiece, coord)
-    } else if (element.classList.contains('pieces')){
-        removePossibleMove()
-        selectedPieceBG(coord)
-        selectedPiece = coord
-    }
-}
-
-// rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR -------------------------------------------------------------
+// rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR 
 function translateFenIndex(index){
-    let lista = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+    const lista = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
     let num
     if (index < 8){
         num = '8'
@@ -242,9 +50,57 @@ function translateFenIndex(index){
     }
     return `${lista[index]}${num}`
 }
+// -------------------------------------------------------------------------------------------------------
+
+// utils +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function isWhiteToMove(){
+    return chess.turn() === 'w'
+} //utils
+
+
+async function getPiecePromotionType() {
+    const {ul} = elements
+    return new Promise((resolve) => {
+        ul.addEventListener('mousedown', (e) => {
+            const pieceType = e.target.classList[0]
+            resolve(pieceType)
+        }, { once: true })
+    })
+} //utils
+
+
+function getUlCoord(nextPieceCoord){
+    let ulCoord = nextPieceCoord
+    let index = 5
+    if (!isWhiteToMove()){
+        const [file, currentRank] = nextPieceCoord.split('')
+        const targetRank = parseInt(currentRank) + 4
+        ulCoord = `${file}${targetRank}`
+        index = 0
+    }
+    return {
+        coord: ulCoord,
+        index: index
+    }
+} //utils
+
+
+function getPieceToRemove(){
+    const {enPassantAttackedSquare} = globals
+    const [file, rankStr] = enPassantAttackedSquare.split('')
+    const currentRank = parseInt(rankStr)
+    const targetRank = isWhiteToMove() ? currentRank + 1 : currentRank - 1
+    return `${file}${targetRank}`
+} //utils
+
+
+function initEnPassantAttackSquare(enPassantFen){
+    globals.enPassantAttackedSquare = enPassantFen
+} //utils
+
 
 function getBoardCoords(e){
-    const boardRect = board.getBoundingClientRect()
+    const boardRect = elements.board.getBoundingClientRect()
     const numCols = 8
     
     const cellWidth = boardRect.width / numCols
@@ -257,179 +113,471 @@ function getBoardCoords(e){
     const coordY = Math.floor(yInsideBoard / cellHeight) * -1
 
     return {"x": coordX, "y": coordY}
-}
+} //utils
+
 
 function translateCoords(dict){
-    let letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
+    const letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
     return `${letters[dict.x-1]}${String(dict.y)}`
-}
+} //utils
 
-function getpieceColor(e) {
+
+function getPieceColor(e) {
     if (e.target.classList.contains('pieces')) {
         if (e.target.classList.contains('w')) return 'w';
         if (e.target.classList.contains('b')) return 'b';
     }
     return undefined;
-}
+} //utils
 
-function selectedPieceBG(coord){
-    removeSelectedPieceBG()
-    let element = document.querySelector(`.${coord}`)
-    element.classList.add("selected")
-    possibleMoves(coord)
-}
 
-function removeSelectedPieceBG(){
-    let selected = document.querySelector(".selected")
-    if (selected != null) selected.classList.remove("selected")
-}
-
-function movedBg(coord){
-    let rastroAnterior = document.querySelector(".moved")
-    if (rastroAnterior){
-        rastroAnterior.remove()
+function getCastlingRookInfo(castlingSide){
+    const rank = isWhiteToMove() ? '8' : '1'
+    const fileMap = {
+        k: {current: 'h', next: 'f'},
+        q: {current: 'a', next: 'd'}
     }
-    let element = Object.assign(document.createElement("div"), { className: "pieces moved"})
-    element.classList.add(`${coord}`)
-    board.appendChild(element)
-}
-
-function movedPieceBG(coord){
-    let rastroAnterior = document.querySelector(".movedPiece")
-    if (rastroAnterior){
-        rastroAnterior.classList.remove('movedPiece')
+    const file = fileMap[castlingSide]
+    return {
+        rookCurrentPosition: `${file.current}${rank}`,
+        rookNextPosition: `${file.next}${rank}`
     }
-    let element = document.querySelector(`.${coord}`)
-    element.classList.add('movedPiece')
-}
-
-addEventListener('mousedown', (e) => {
-    if (e.target.classList[0] !== 'pieces' || (e.target.classList[1] !== chess.turn())){
-        removeSelectedPieceBG()
-        removePossibleMove()
-    }
-})
-
-board.addEventListener('mousedown', (e) => {
-    if (e.button !== 0) return
-    let coords = getBoardCoords(e)
-    let translatedCoords = translateCoords(coords)
-    let pieceColor = getpieceColor(e)
-    verifyMove(translatedCoords, pieceColor)
-})
+} //utils
 
 
-board.addEventListener('drop', (e) => {
-    let coords = getBoardCoords(e)
-    let translatedCoords = translateCoords(coords)
-    let pieceColor = getpieceColor(e)
-    verifyMove(translatedCoords, pieceColor)
-})
+function getCastlingSide(move){
+    if (move.flags.includes('k')) return 'k'
+    if (move.flags.includes('q')) return 'q'
+} //utils
 
 
-board.addEventListener('dragover', (e) => {
-    e.preventDefault(); 
-    e.dataTransfer.dropEffect = "move"
-})
+function getPossibleCastlingCoord(queenSide){
+    const file = queenSide ? 'c' : 'g'
+    const rank = isWhiteToMove() ? '1' : '8'
+    return `${file}${rank}`
+} //utils
 
-function possibleMoves(currentPieceCoord){
-    let lista = chess.moves({square: `${currentPieceCoord}`})
+
+function getPossibleCastlingSide(possibleMovesList){
     let queenSide = false
-    lista.forEach(coord => {
-        if (coord === 'O-O'){
-            possibleRook(queenSide)
-        }else if (coord === 'O-O-O'){
-            queenSide = true
-            possibleRook(queenSide)
-        }
+    possibleMovesList.forEach(move => {
+        if (move === 'O-O-O') queenSide = true
     })
-    for (let i = 0; i < lista.length; i++){
-        let square = lista[i].split((re))[1]
-        if (square !== undefined){
-            let element = Object.assign(document.createElement("div"), { className: `${square}`})
-            board.appendChild(element)
-            verifyAttackedPiece(element)
+    return queenSide
+} //utils
+
+
+//  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// game *************************************************************************************************
+function gameOverController(){
+    if (chess.isGameOver()){
+        if (chess.isCheckmate()){
+            createCheckmateDisplay()
+        }else if (chess.isDraw()){
+            getDrawReason()
         }
     }
-}
+} //game
+
+
+function isAPossibleMove(nextPieceCoord){
+    let isPossible = 0
+    globals.possibleMovesList?.forEach(coord => {
+        const square = coord.split((COORD_REGEX))[1]
+        if (square && nextPieceCoord === square) isPossible++
+    })
+    return isPossible ? true : false
+} //game
+
+
+function isPromotion(){
+    if (!elements.pieceElement?.matches('.p, .P')) return false
+    const {currentPieceCoord, nextPieceCoord} = globals
+    if (!isAPossibleMove(nextPieceCoord)) return false
+    const firsts = /(^[a-h]1$)/, seconds = /(^[a-h]2$)/, sevenths = /(^[a-h]7$)/, eighths = /(^[a-h]8$)/
+    return (seconds.test(`${currentPieceCoord}`) && firsts.test(`${nextPieceCoord}`)) || (sevenths.test(`${currentPieceCoord}`) && eighths.test(`${nextPieceCoord}`))
+} //game
+
+
+function makePromotionMove(pieceType){
+    const {currentPieceCoord, nextPieceCoord} = globals
+    const move = chess.move({ from: currentPieceCoord, to: nextPieceCoord, promotion: `${pieceType.split('')[1]}` })
+    return move
+} //game 
+
+
+function makeMove(){
+    const {currentPieceCoord, nextPieceCoord} = globals
+    const move = chess.move({ from: currentPieceCoord, to: nextPieceCoord})
+    return move
+} //game
+
 
 function verifyAttackedPiece(possibleMoveElement){
     const pieces = document.querySelectorAll('.pieces:not(.moved)')
     const coord = possibleMoveElement.classList[0]
     pieces.forEach(divPiece => {
-        if (divPiece.classList.contains(coord)){
-            possibleMoveElement.classList.add('possibleCapture')
-        }else if (coord === enPassantAttack){
+        if (divPiece.classList.contains(coord) || coord === globals.enPassantAttackedSquare){
             possibleMoveElement.classList.add('possibleCapture')
         }else{
             possibleMoveElement.classList.add('possibleMove')
         }
     })
-}
+} //game
 
-function Capture(coord, pieceMovedElement) {
-    const potentialVictims = document.querySelectorAll(`.pieces.${coord}`)
+
+function isDrawByFiftyMoves(){
+    const halvesMoves = chess.fen().split(' ')[4]
+    return halvesMoves >= 100
+} //game
+
+
+function getDrawReason(){
+    if (chess.isInsufficientMaterial()) return 'draw by insuficient material'
+    if (isDrawByFiftyMoves()) return 'draw by fifty moves'
+    if (chess.isStalemate()) return 'stalemate'
+    if (chess.isThreefoldRepetition()) return 'three fold repetition'
+
+    return 'draw'
+} //game
+
+
+function isCastling(possibleMovesList){
+    let isCastling = false 
+    possibleMovesList.forEach(move => {
+        if (move === 'O-O' || move === 'O-O-O') isCastling = true
+    })
+    return isCastling
+} //game
+
+
+async function getMoveObject() {
+    try {
+        let move
+        if (isPromotion()) move = await promotionController()
+        else move = makeMove()
+        return move
+    } catch (error) {
+        console.log('Movimento inválido segundo as regras do xadrez', error)
+    }
+} //game
+
+
+// ****************************************************************************************************
+
+// ui /////////////////////////////////////////////////////////////////////////////////////////////////
+function removePieceWhenEnPassant(pieceToRemove) {
+    const victim = document.querySelector(`.${pieceToRemove}`)
+    victim?.remove()
+} //ui
+
+
+function createPromotionList(ulCoord){
+    const promotions = ['bclose', 'bb', 'br', 'bn', 'bq', 'wq', 'wn', 'wr', 'wb', 'wclose']
+    const ul = Object.assign(document.createElement("ul"), { className: `pieces promotionList ${ulCoord.coord}`})
+    elements.board.appendChild(ul)
+    let index = ulCoord.index
+    for (let i = 0; i < 5; i++){
+        const li = Object.assign(document.createElement("li"), { className: `${promotions[index++]} pieces promotionItem `})
+        ul.appendChild(li)
+    }
+} //ui
+
+
+function deletePromotionList(){
+    elements.ul?.remove()
+} //ui
+
+
+function updatePromotingPiece(pieceType){
+    if (isWhiteToMove()) elements.pieceElement?.classList.remove('wp')
+    else elements.pieceElement?.classList.remove('bp') 
+    elements.pieceElement?.classList.add(`${pieceType}`)
+} //ui
+
+
+function moveUIPiece(){
+    const {currentPieceCoord, nextPieceCoord} = globals
+    const {pieceElement} = elements
+    pieceElement?.classList.remove(currentPieceCoord)
+    pieceElement?.classList.add(nextPieceCoord)
+} //ui
+
+
+function createHighlightPiece(){
+    const element = document.querySelector(`.${globals.currentPieceCoord}`)
+    element.classList.add("highlight")
+} //ui
+
+
+function clearHighlightPiece(){
+    elements.highlightPiece?.classList.remove("highlight")
+} //ui
+
+
+function createHighlightTrail(){
+    const element = Object.assign(document.createElement("div"), { className: `pieces moved ${globals.currentPieceCoord}`})
+    elements.board.appendChild(element)
+} //ui
+
+
+function clearHighlightTrail(){
+    elements.highlightTrail?.remove()
+} //ui
+
+
+function clearMovedPieceBackground(){
+    elements.movedPiece?.classList.remove('movedPiece')
+} //ui
+
+
+function createMovedPieceBackground(){
+    const element = document.querySelector(`.${globals.nextPieceCoord}`)
+    element?.classList.add('movedPiece')
+} //ui
+
+
+function createPossibleCastlingIndicator(coord){
+    const element = Object.assign(document.createElement("div"), { className: `${coord} castling`})
+    elements.board.appendChild(element)
+} //ui
+
+
+function createPossibleMovesIndicator(possibleMovesList){
+    for (let i = 0; i < possibleMovesList.length; i++){
+        const square = possibleMovesList[i].split((COORD_REGEX))[1]
+        if (square){
+            const element = Object.assign(document.createElement("div"), { className: `${square}`})
+            elements.board.appendChild(element)
+            verifyAttackedPiece(element)
+        }
+    }
+} //ui
+
+
+function makeCapture() {
+    const {nextPieceCoord} = globals
+    const potentialVictims = document.querySelectorAll(`.pieces.${nextPieceCoord}`)
     
     potentialVictims.forEach(victim => {
-        if (victim !== pieceMovedElement) {
-            victim.remove()
+        if (victim !== elements.pieceElement) {
+            victim?.remove()
         }
     })
-}
+} //ui
 
-function enPassant(coord) {
-    const victim = document.querySelector(`.${coord}`)
-    if (!victim) return
-    victim.remove()
-}
+function enPassantUIController(){
+    const pieceToRemove = getPieceToRemove()
+    removePieceWhenEnPassant(pieceToRemove)
+    initEnPassantAttackSquare(null)
+} //ui
 
-function removePossibleMove(){
-    let element = document.querySelectorAll('.possibleMove, .possibleCapture, .castling')
+
+function clearPossibleMovesIndicator(){
+    const element = document.querySelectorAll('.possibleMove, .possibleCapture, .castling')
     element.forEach(div => {
         div.remove()
     })
+} //ui
+
+
+function createCheckmateDisplay(){
+    elements.currentKing?.classList.add('checkmate')
+} //ui
+
+
+function createCheckDisplay(){
+    elements.currentKing?.classList.add('check')
+} //ui
+
+
+function clearCheckDisplay(){
+    elements.checkKing?.classList.remove('check') 
+} //ui
+
+
+function updateRookWhenCastling(info){
+    const element = document.querySelector(`.${info.rookCurrentPosition}`)
+    element?.classList.remove(info.rookCurrentPosition)
+    element?.classList.add(info.rookNextPosition)
+} //ui
+
+// /////////////////////////////////////////////////////////////////////////////////////////////////
+
+// main ===========================================================================================
+
+const globals = {
+    enPassantAttackedSquare: null,
+    currentPieceCoord: null,
+    nextPieceCoord: null,
+    possibleMovesList: null,
+    promoting: null
+} //main
+
+
+const elements = {
+    board: document.querySelector("#chess-board"),
+    get whiteKing() {return this.board?.querySelector('.wk')},
+    get blackKing() {return this.board?.querySelector('.bk')},
+    get checkKing() {return this.board?.querySelector('.check')},
+    get currentKing() {return isWhiteToMove() ? this.whiteKing : this.blackKing},
+
+    get ul() {return this.board?.querySelector('.promotionList')},
+    get movedPiece() {return this.board?.querySelector('.movedPiece')},
+    get highlightPiece() {return this.board?.querySelector('.highlight')},
+    get highlightTrail() {return this.board?.querySelector('.moved')},
+
+    get pieceElement() {return this.board?.querySelector(`.${globals.currentPieceCoord}`)}
+} //main
+
+
+function checkController(){
+    clearCheckDisplay()
+    if (chess.inCheck() && !(chess.isCheckmate())) createCheckDisplay()
+} //main
+
+
+function enPassantController(){
+    const enPassantFen = chess.fen().split(' ')[3]
+    if (enPassantFen !== '-') initEnPassantAttackSquare(enPassantFen)
+} //main
+
+
+async function promotionController(){
+    const {nextPieceCoord} = globals
+    const ulCoord = getUlCoord(nextPieceCoord)
+    createPromotionList(ulCoord)
+    globals.promoting = true
+    const pieceType = await getPiecePromotionType()
+    globals.promoting = null
+    let make = null
+    if (!(pieceType === 'wclose' || pieceType === 'bclose')){
+        updatePromotingPiece(pieceType)
+        make = makePromotionMove(pieceType)
+    }
+    deletePromotionList()
+    return make
+} //main
+
+
+function movePieceController(){
+    moveUIPiece()
+    clearPossibleMovesIndicator()
+    highlightTrailController()
+    movedPieceBackgroundController()
+} //main
+
+
+function castlingController(move){
+    const {possibleMovesList} = globals
+    if (!isCastling(possibleMovesList)) return
+    const castlingSide = getCastlingSide(move)
+    const info = getCastlingRookInfo(castlingSide)
+    updateRookWhenCastling(info)
+} //main
+
+
+function movedPieceBackgroundController(){ 
+    clearMovedPieceBackground()
+    createMovedPieceBackground()
+} //main
+
+
+function highlightPieceController(coord){ 
+    clearHighlightPiece()
+    createHighlightPiece(coord)
+} //main
+
+
+function highlightTrailController(){ 
+    clearHighlightTrail()
+    createHighlightTrail()
+} //main
+
+
+function possibleCastlingController(){
+    const {possibleMovesList} = globals
+    if (isCastling(possibleMovesList)){
+        const queenSide = getPossibleCastlingSide(possibleMovesList)
+        const coord = getPossibleCastlingCoord(queenSide)
+        createPossibleCastlingIndicator(coord)
+    }
 }
 
-function possibleRook(queenSide){
-    let turn = chess.turn()
-    let coord
-    if (queenSide){
-        if (turn === 'w'){
-            coord = 'c1'
-        }else{
-            coord = 'c8'
-        }
-    }else {
-        if (turn === 'w'){
-            coord = 'g1'
-        }else{
-            coord = 'g8'
-        }
-    }
-    let element = Object.assign(document.createElement("div"), { className: `${coord} castling`})
-    board.appendChild(element)
-}
+function possibleMovesController(){
+    const {possibleMovesList} = globals
+    clearPossibleMovesIndicator()
+    createPossibleMovesIndicator(possibleMovesList)
+} //main
 
-function castling(castlingSide){
-    let side, coord
-    if (castlingSide === 'k'){
-        if (chess.turn() === 'b'){
-            side = 'f1'
-            coord = 'h1'
-        }else {
-            side = 'f8'
-            coord = 'h8'
-        }
-    }else if(castlingSide === 'q'){
-        if (chess.turn() === 'b'){
-            side = 'd1'
-            coord = 'a1'
-        }else {
-            side = 'd8'
-            coord = 'a8'
-        }
+
+addEventListener('mousedown', (e) => {
+    if (e.target.classList[0] !== 'pieces' || (e.target.classList[1] !== chess.turn())){
+        clearHighlightPiece()
+        clearPossibleMovesIndicator()
     }
-    let element = document.querySelector(`.${coord}`)
-    element.classList.remove(coord)
-    element.classList.add(side)
-}
+}) //main
+
+
+elements.board.addEventListener('dragover', (e) => {
+    e.preventDefault(); 
+    e.dataTransfer.dropEffect = "move"
+}) //main
+
+
+elements.board.addEventListener('mousedown', (e) => {
+    if (e.button !== 0 || globals.promoting === true) return
+    const coords = getBoardCoords(e)
+    const translatedCoords = translateCoords(coords)
+    const pieceColor = getPieceColor(e)
+    verifyUserClicks(translatedCoords, pieceColor)
+}) //main
+
+
+elements.board.addEventListener('drop', (e) => {
+    if (globals.promoting === true) return
+    const coords = getBoardCoords(e)
+    const translatedCoords = translateCoords(coords)
+    const pieceColor = getPieceColor(e)
+    verifyUserClicks(translatedCoords, pieceColor)
+}) //main
+
+
+async function verifyUserClicks(coord, pieceColor){
+    const element = document.querySelector(`.${coord}:not(.moved)`) ?? elements.board
+    if ((globals.currentPieceCoord != null && globals.currentPieceCoord != undefined) && !(chess.turn() === `${pieceColor}`)){
+        globals.nextPieceCoord = coord
+        await mainController()
+        globals.currentPieceCoord = null
+        globals.nextPieceCoord = null
+    } else if (element.classList.contains('pieces')){
+        globals.currentPieceCoord = coord
+        globals.possibleMovesList = chess.moves({square: `${globals.currentPieceCoord}`})
+        possibleMovesController()
+        highlightPieceController()
+        possibleCastlingController()
+    }
+} //main
+
+
+async function mainController() {
+    const move = await getMoveObject()
+    checkController()
+    enPassantController()
+    if (move) {
+        castlingController(move)
+        if (move.captured) {
+            if (move.flags.includes('e')){
+                enPassantUIController()
+            }else{
+                makeCapture()
+            }
+        }
+        movePieceController()
+        gameOverController()
+    }
+} //main
+
+
+// =====================================================================================================

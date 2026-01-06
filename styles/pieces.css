@@ -99,7 +99,7 @@
 }
 
 ul.promotionList{
-    height: calc(var(--pieces-width) * 4);
+    height: calc(var(--pieces-width) * 5);
     background-color: #9b9a9a;
     box-shadow: 2px 2px 5px rgb(54, 54, 54);
 }
@@ -163,7 +163,7 @@ li.promotionItem{
     background: no-repeat center/100% url(/assets/pieces/pawn-w.svg);
 }
 
-.selected{
+.highlight{
     background-color: rgb(175, 205, 250);
     border-radius: 0;
     clip-path: none;
@@ -178,4 +178,12 @@ li.promotionItem{
 .moved, .movedPiece{
     background-color: rgba(236, 236, 82, 0.644);
     transform: scale(1.02);
+}
+
+.bclose{
+    background: url(/assets/icons/close_X_b.svg) center/100% no-repeat;
+}
+
+.wclose{
+    background: url(/assets/icons/close_X_w.svg) center/100% no-repeat;
 }
