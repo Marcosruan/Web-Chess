@@ -149,8 +149,16 @@ function possibleCastlingController(){
     const {possibleMovesList} = globals
     if (game.isCastling(possibleMovesList)){
         const queenSide = utils.getPossibleCastlingSide(possibleMovesList)
-        const coord = utils.getPossibleCastlingCoord(queenSide)
-        ui.createPossibleCastlingIndicator(coord)
+        let coord
+        if (queenSide === 2){
+            for (let i = 0; i < 2; i++){
+            coord = utils.getPossibleCastlingCoord(i)
+            ui.createPossibleCastlingIndicator(coord)
+            }
+        }else{
+            coord = utils.getPossibleCastlingCoord(queenSide)
+            ui.createPossibleCastlingIndicator(coord)
+        }
     }
 }
 

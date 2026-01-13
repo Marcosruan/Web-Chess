@@ -106,9 +106,11 @@ export function getPossibleCastlingCoord(queenSide){
 
 
 export function getPossibleCastlingSide(possibleMovesList){
-    let queenSide = false
+    let queenSide = 0, kingSide = 0
     possibleMovesList.forEach(move => {
-        if (move === 'O-O-O') queenSide = true
+        if (move === 'O-O') kingSide++
+        if (move === 'O-O-O') queenSide++
     })
+    if (kingSide && queenSide) return kingSide + queenSide
     return queenSide
 } //utils
