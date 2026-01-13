@@ -1,8 +1,7 @@
+import { Chess } from 'https://cdn.jsdelivr.net/npm/chess.js@1.0.0-beta.8/+esm'
 import * as game from './game.js'
 import * as utils from './utils.js'
 import * as ui from './ui.js'
-
-import { Chess } from 'https://cdn.jsdelivr.net/npm/chess.js@1.0.0-beta.8/+esm';
 
 export const chess = new Chess()
 export const COORD_REGEX = /([a-h][1-8])/
@@ -26,35 +25,34 @@ export const COORD_REGEX = /([a-h][1-8])/
 //     }
 // }
 
-function getHistory(currentFen){
-    history.push(currentFen.split(' ')[0])
-    return history.at(-1)
-}
+// function getHistory(currentFen){
+//     history.push(currentFen.split(' ')[0])
+//     return history.at(-1)
+// }
 
-// rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR 
-function translateFenIndex(index){
-    const lista = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-    let num
-    if (index < 8){
-        num = '8'
-    }else if (index < 16){
-        num = '7'
-    }else if (index < 24){
-        num = '6'
-    }else if (index < 32){
-        num = '5'
-    }else if (index < 40){
-        num = '4'
-    }else if (index < 48){
-        num = '3'
-    }else if (index < 56){
-        num = '2'
-    }else{
-        num = '1'
-    }
-    return `${lista[index]}${num}`
-}
-
+// // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR 
+// function translateFenIndex(index){
+//     const lista = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+//     let num
+//     if (index < 8){
+//         num = '8'
+//     }else if (index < 16){
+//         num = '7'
+//     }else if (index < 24){
+//         num = '6'
+//     }else if (index < 32){
+//         num = '5'
+//     }else if (index < 40){
+//         num = '4'
+//     }else if (index < 48){
+//         num = '3'
+//     }else if (index < 56){
+//         num = '2'
+//     }else{
+//         num = '1'
+//     }
+//     return `${lista[index]}${num}`
+// }
 
 export const globals = {
     enPassantAttackedSquare: null,
@@ -79,116 +77,6 @@ export const elements = {
 
     get pieceElement() {return this.board?.querySelector(`.${globals.currentPieceCoord}`)}
 }
-
-
-function checkController(){
-    ui.clearCheckDisplay()
-    if (chess.inCheck() && !(chess.isCheckmate())) ui.createCheckDisplay()
-}
-
-
-function enPassantController(){
-    const enPassantFen = chess.fen().split(' ')[3]
-    if (enPassantFen !== '-') utils.initEnPassantAttackSquare(enPassantFen)
-}
-
-
-export async function promotionController(){
-    const {nextPieceCoord} = globals
-    const ulCoord = utils.getUlCoord(nextPieceCoord)
-    ui.createPromotionList(ulCoord)
-    globals.promoting = true
-    const pieceType = await utils.getPiecePromotionType()
-    globals.promoting = null
-    let make = null
-    if (!(pieceType === 'wclose' || pieceType === 'bclose')){
-        ui.updatePromotingPiece(pieceType)
-        make = game.makePromotionMove(pieceType)
-    }
-    ui.deletePromotionList()
-    return make
-}
-
-
-function movePieceController(){
-    ui.moveUIPiece()
-    ui.clearPossibleMovesIndicator()
-    highlightTrailController()
-    movedPieceBackgroundController()
-}
-
-
-function castlingController(move){
-    const {possibleMovesList} = globals
-    if (!game.isCastling(possibleMovesList)) return
-    const castlingSide = utils.getCastlingSide(move)
-    const info = utils.getCastlingRookInfo(castlingSide)
-    ui.updateRookWhenCastling(info)
-}
-
-
-function movedPieceBackgroundController(){ 
-    ui.clearMovedPieceBackground()
-    ui.createMovedPieceBackground()
-}
-
-
-function highlightPieceController(coord){ 
-    ui.clearHighlightPiece()
-    ui.createHighlightPiece(coord)
-}
-
-
-function highlightTrailController(){ 
-    ui.clearHighlightTrail()
-    ui.createHighlightTrail()
-}
-
-
-function possibleCastlingController(){
-    const {possibleMovesList} = globals
-    if (game.isCastling(possibleMovesList)){
-        const queenSide = utils.getPossibleCastlingSide(possibleMovesList)
-        let coord
-        if (queenSide === 2){
-            for (let i = 0; i < 2; i++){
-            coord = utils.getPossibleCastlingCoord(i)
-            ui.createPossibleCastlingIndicator(coord)
-            }
-        }else{
-            coord = utils.getPossibleCastlingCoord(queenSide)
-            ui.createPossibleCastlingIndicator(coord)
-        }
-    }
-}
-
-
-function possibleMovesController(){
-    const {possibleMovesList} = globals
-    ui.clearPossibleMovesIndicator()
-    ui.createPossibleMovesIndicator(possibleMovesList)
-}
-
-
-function enPassantUIController(){
-    const pieceToRemove = utils.getPieceToRemove()
-    ui.removePieceWhenEnPassant(pieceToRemove)
-    utils.initEnPassantAttackSquare(null)
-}
-
-
-addEventListener('mousedown', (e) => {
-    if (e.target.classList[0] !== 'pieces' || (e.target.classList[1] !== chess.turn())){
-        ui.clearHighlightPiece()
-        ui.clearPossibleMovesIndicator()
-    }
-})
-
-
-elements.board.addEventListener('dragover', (e) => {
-    e.preventDefault(); 
-    e.dataTransfer.dropEffect = "move"
-})
 
 
 elements.board.addEventListener('mousedown', (e) => {
@@ -227,7 +115,7 @@ async function verifyUserClicks(coord, pieceColor){
 
 
 async function mainController() {
-    const move = await game.getMoveObject()
+    const move = await getMoveObject()
     checkController()
     enPassantController()
     if (move) {
@@ -243,3 +131,124 @@ async function mainController() {
         game.gameOverController()
     }
 }
+
+
+async function getMoveObject() {
+    try {
+        let move
+        if (game.isPromotion()) move = await promotionController()
+        else move = game.makeMove()
+        return move
+    } catch (error) {
+        console.log('Movimento inválido segundo as regras do xadrez', error)
+    }
+}
+
+
+export async function promotionController(){
+    const {nextPieceCoord} = globals
+    const ulCoord = utils.getUlCoord(nextPieceCoord)
+    ui.createPromotionList(ulCoord)
+    globals.promoting = true
+    const pieceType = await utils.getPiecePromotionType()
+    globals.promoting = null
+    let make = null
+    if (!(pieceType === 'wclose' || pieceType === 'bclose')){
+        ui.updatePromotingPiece(pieceType)
+        make = game.makePromotionMove(pieceType)
+    }
+    ui.deletePromotionList()
+    return make
+}
+
+
+function checkController(){
+    ui.clearCheckDisplay()
+    if (chess.inCheck() && !(chess.isCheckmate())) ui.createCheckDisplay()
+}
+
+
+function enPassantController(){
+    const enPassantFen = chess.fen().split(' ')[3]
+    if (enPassantFen !== '-') utils.initEnPassantAttackSquare(enPassantFen)
+}
+
+
+function castlingController(move){
+    const {possibleMovesList} = globals
+    if (!game.isCastling(possibleMovesList)) return
+    const castlingSide = utils.getCastlingSide(move)
+    const info = utils.getCastlingRookInfo(castlingSide)
+    ui.updateRookWhenCastling(info)
+}
+
+
+function enPassantUIController(){
+    const pieceToRemove = utils.getPieceToRemove()
+    ui.removePieceWhenEnPassant(pieceToRemove)
+    utils.initEnPassantAttackSquare(null)
+}
+
+
+function movePieceController(){
+    ui.moveUIPiece()
+    ui.clearPossibleMovesIndicator()
+    highlightTrailController()
+    movedPieceBackgroundController()
+}
+
+
+function highlightTrailController(){ 
+    ui.clearHighlightTrail()
+    ui.createHighlightTrail()
+}
+
+
+function movedPieceBackgroundController(){ 
+    ui.clearMovedPieceBackground()
+    ui.createMovedPieceBackground()
+}
+
+
+function possibleMovesController(){
+    ui.clearPossibleMovesIndicator()
+    ui.createPossibleMovesIndicator()
+}
+
+
+function highlightPieceController(coord){ 
+    ui.clearHighlightPiece()
+    ui.createHighlightPiece(coord)
+}
+
+
+function possibleCastlingController(){
+    const {possibleMovesList} = globals
+    if (game.isCastling(possibleMovesList)){
+        const queenSide = utils.getPossibleCastlingSide(possibleMovesList)
+        let coord
+        if (queenSide === 2){
+            for (let i = 0; i < 2; i++){
+            coord = utils.getPossibleCastlingCoord(i)
+            ui.createPossibleCastlingIndicator(coord)
+            }
+        }else{
+            coord = utils.getPossibleCastlingCoord(queenSide)
+            ui.createPossibleCastlingIndicator(coord)
+        }
+    }
+}
+
+
+elements.board.addEventListener('dragover', (e) => {
+    e.preventDefault(); 
+    e.dataTransfer.dropEffect = "move"
+})
+
+
+addEventListener('mousedown', (e) => {
+    if (e.target.classList[0] !== 'pieces' || (e.target.classList[1] !== chess.turn())){
+        ui.clearHighlightPiece()
+        ui.clearPossibleMovesIndicator()
+    }
+})

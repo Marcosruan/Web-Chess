@@ -1,49 +1,10 @@
 import {globals, elements, chess} from './main.js'
+import {updatePossibleMoveDisplay} from './ui.js'
+
 
 export function isWhiteToMove(){
     return chess.turn() === 'w'
-} //utils
-
-
-export async function getPiecePromotionType() {
-    const {ul} = elements
-    return new Promise((resolve) => {
-        ul.addEventListener('mousedown', (e) => {
-            const pieceType = e.target.classList[0]
-            resolve(pieceType)
-        }, { once: true })
-    })
-} //utils
-
-
-export function getUlCoord(nextPieceCoord){
-    let ulCoord = nextPieceCoord
-    let index = 5
-    if (!isWhiteToMove()){
-        const [file, currentRank] = nextPieceCoord.split('')
-        const targetRank = parseInt(currentRank) + 4
-        ulCoord = `${file}${targetRank}`
-        index = 0
-    }
-    return {
-        coord: ulCoord,
-        index: index
-    }
-} //utils
-
-
-export function getPieceToRemove(){
-    const {enPassantAttackedSquare} = globals
-    const [file, rankStr] = enPassantAttackedSquare.split('')
-    const currentRank = parseInt(rankStr)
-    const targetRank = isWhiteToMove() ? currentRank + 1 : currentRank - 1
-    return `${file}${targetRank}`
-} //utils
-
-
-export function initEnPassantAttackSquare(enPassantFen){
-    globals.enPassantAttackedSquare = enPassantFen
-} //utils
+}
 
 
 export function getBoardCoords(e){
@@ -60,13 +21,13 @@ export function getBoardCoords(e){
     const coordY = Math.floor(yInsideBoard / cellHeight) * -1
 
     return {"x": coordX, "y": coordY}
-} //utils
+}
 
 
 export function translateCoords(dict){
     const letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
     return `${letters[dict.x-1]}${String(dict.y)}`
-} //utils
+}
 
 
 export function getPieceColor(e) {
@@ -75,7 +36,45 @@ export function getPieceColor(e) {
         if (e.target.classList.contains('b')) return 'b';
     }
     return undefined;
-} //utils
+}
+
+
+export function getUlCoord(nextPieceCoord){
+    let ulCoord = nextPieceCoord
+    let index = 5
+    if (!isWhiteToMove()){
+        const [file, currentRank] = nextPieceCoord.split('')
+        const targetRank = parseInt(currentRank) + 4
+        ulCoord = `${file}${targetRank}`
+        index = 0
+    }
+    return {
+        coord: ulCoord,
+        index: index
+    }
+}
+
+
+export async function getPiecePromotionType() {
+    const {ul} = elements
+    return new Promise((resolve) => {
+        ul.addEventListener('mousedown', (e) => {
+            const pieceType = e.target.classList[0]
+            resolve(pieceType)
+        }, { once: true })
+    })
+}
+
+
+export function initEnPassantAttackSquare(enPassantFen){
+    globals.enPassantAttackedSquare = enPassantFen
+}
+
+
+export function getCastlingSide(move){
+    if (move.flags.includes('k')) return 'k'
+    if (move.flags.includes('q')) return 'q'
+}
 
 
 export function getCastlingRookInfo(castlingSide){
@@ -89,20 +88,16 @@ export function getCastlingRookInfo(castlingSide){
         rookCurrentPosition: `${file.current}${rank}`,
         rookNextPosition: `${file.next}${rank}`
     }
-} //utils
+}
 
 
-export function getCastlingSide(move){
-    if (move.flags.includes('k')) return 'k'
-    if (move.flags.includes('q')) return 'q'
-} //utils
-
-
-export function getPossibleCastlingCoord(queenSide){
-    const file = queenSide ? 'c' : 'g'
-    const rank = isWhiteToMove() ? '1' : '8'
-    return `${file}${rank}`
-} //utils
+export function getPieceToRemove(){
+    const {enPassantAttackedSquare} = globals
+    const [file, rankStr] = enPassantAttackedSquare.split('')
+    const currentRank = parseInt(rankStr)
+    const targetRank = isWhiteToMove() ? currentRank + 1 : currentRank - 1
+    return `${file}${targetRank}`
+}
 
 
 export function getPossibleCastlingSide(possibleMovesList){
@@ -113,4 +108,20 @@ export function getPossibleCastlingSide(possibleMovesList){
     })
     if (kingSide && queenSide) return kingSide + queenSide
     return queenSide
-} //utils
+}
+
+
+export function getPossibleCastlingCoord(queenSide){
+    const file = queenSide ? 'c' : 'g'
+    const rank = isWhiteToMove() ? '1' : '8'
+    return `${file}${rank}`
+}
+
+
+export function verifyAttackedPiece(possibleMoveElement){
+    const pieces = document.querySelectorAll('.pieces:not(.moved)')
+    const coord = possibleMoveElement.classList[0]
+    pieces.forEach(divPiece => {
+        updatePossibleMoveDisplay(possibleMoveElement, divPiece.classList.contains(coord) || coord === globals.enPassantAttackedSquare)
+    })
+}
