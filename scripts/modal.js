@@ -1,4 +1,5 @@
 // Modal ON or OFF
+import {toDefaultPositionController} from './saveGame.js'
 const modal = document.querySelector("#modal");
 const button = document.querySelector("#settings-button");
 const mobileButton = document.querySelector("#mobile-settings-button");
@@ -24,6 +25,9 @@ document.addEventListener('keydown', (e) => {
 });
 
 // Theme button
-const themeButton = document.querySelector("#theme-mode")
+// const themeButton = document.querySelector("#theme-mode")
 
 // Reset button
+const resetButton = document.querySelector("#reset-button")
+
+// resetButton.addEventListener('click', toDefaultPositionController())

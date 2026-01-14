@@ -6,53 +6,6 @@ import * as ui from './ui.js'
 export const chess = new Chess()
 export const COORD_REGEX = /([a-h][1-8])/
 
-// inacabadas ------------------------------------------------------------------------------------------
-
-// console.log(chess.ascii())
-// console.log(chess.fen())
-// var history = ['rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR']
-
-
-// function verifyFen(){
-//     let i = 0, index = 0
-//     let currentFen = chess.fen()
-//     let history = getHistory(currentFen)
-//     while (currentFen[i++] != ' '){
-//         if (currentFen[i] !== '/'){
-
-//             index++
-//         }
-//     }
-// }
-
-// function getHistory(currentFen){
-//     history.push(currentFen.split(' ')[0])
-//     return history.at(-1)
-// }
-
-// // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR 
-// function translateFenIndex(index){
-//     const lista = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
-//     let num
-//     if (index < 8){
-//         num = '8'
-//     }else if (index < 16){
-//         num = '7'
-//     }else if (index < 24){
-//         num = '6'
-//     }else if (index < 32){
-//         num = '5'
-//     }else if (index < 40){
-//         num = '4'
-//     }else if (index < 48){
-//         num = '3'
-//     }else if (index < 56){
-//         num = '2'
-//     }else{
-//         num = '1'
-//     }
-//     return `${lista[index]}${num}`
-// }
 
 export const globals = {
     enPassantAttackedSquare: null,
