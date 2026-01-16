@@ -1,15 +1,34 @@
-import {chess, elements} from './main.js'
+import { elements } from './main.js'
 
 localStorage?.removeItem('prompts_storage') 
 
 const globals = {
-    index: localStorage.length
+    index: localStorage.length,
+    position: null,
+    turn: null,
+    castling: null, 
+    enPassant: null,
+    halvesMoves: null,
+    moves: null
 }
 
 
 export function localStorageController(){
     if (isLocalStorageEmpty) toDefaultPosition()
     else toSavedPosition()
+}
+
+
+export function initFenVariables(fen){
+    if (!fen) return
+    const fenParts = fen.split(" ")
+    globals.position = fenParts[0]
+    globals.turn = fenParts[1]
+    globals.castling = fenParts[2]
+    globals.enPassant = fenParts[3]
+    globals.halvesMoves = fenParts[4]
+    globals.fullMoves = fenParts[5]
+    saveFen(fen)
 }
 
 
@@ -20,10 +39,10 @@ function toSavedPosition(){
 
 export function toDefaultPositionController(){
     clearBoard()
-    const defaultFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR'
-    updateBoardByFen(defaultFen)
+    const defaultFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+    initFenVariables(defaultFen)
+    updateBoardByFen(globals.position)
     clearLocalStorage()
-    saveFen(defaultFen)
 }
 
 

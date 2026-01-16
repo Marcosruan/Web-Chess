@@ -2,10 +2,12 @@ import { Chess } from 'https://cdn.jsdelivr.net/npm/chess.js@1.0.0-beta.8/+esm'
 import * as game from './game.js'
 import * as utils from './utils.js'
 import * as ui from './ui.js'
+import { initFenVariables } from './saveGame.js'
 
 export const chess = new Chess()
 export const COORD_REGEX = /([a-h][1-8])/
 
+console.log(chess.fen())
 
 export const globals = {
     enPassantAttackedSquare: null,
@@ -81,6 +83,7 @@ async function mainController() {
             }
         }
         movePieceController()
+        initFenVariables(chess.fen())
         game.gameOverController()
     }
 }
