@@ -1,25 +1,18 @@
-import { elements } from './main.js'
+import { chess, elements } from './main.js'
 
 localStorage?.removeItem('prompts_storage') 
 
 const globals = {
-    index: localStorage.length,
     position: null,
     turn: null,
     castling: null, 
     enPassant: null,
     halvesMoves: null,
-    moves: null
+    fullMoves: null
 }
 
 
-export function localStorageController(){
-    if (isLocalStorageEmpty) toDefaultPosition()
-    else toSavedPosition()
-}
-
-
-export function initFenVariables(fen){
+function initFenVariables(fen){
     if (!fen) return
     const fenParts = fen.split(" ")
     globals.position = fenParts[0]
@@ -28,21 +21,32 @@ export function initFenVariables(fen){
     globals.enPassant = fenParts[3]
     globals.halvesMoves = fenParts[4]
     globals.fullMoves = fenParts[5]
-    saveFen(fen)
+    saveHistory()
+    saveGlobals()
+}
+
+
+export function localStorageController(){
+    if (isLocalStorageEmpty()) toDefaultPositionController()
+    else toSavedPosition()
 }
 
 
 function toSavedPosition(){
-
+    const fen = JSON.parse(localStorage.getItem('fen')).at(-1)
+    chess.load(fen)
+    initFenVariables(fen)
+    updateBoardByFen(globals.position)
 }
 
 
 export function toDefaultPositionController(){
     clearBoard()
-    const defaultFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
-    initFenVariables(defaultFen)
-    updateBoardByFen(globals.position)
     clearLocalStorage()
+    const defaultFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+    chess.load(defaultFen)
+    saveFen(defaultFen)
+    updateBoardByFen(globals.position)
 }
 
 
@@ -60,8 +64,8 @@ function updateBoardByFen(fen){
                 const coord = translateFenIndex(x, y)
                 updateUIController(coord, fen[index])
             }
-            index++
             x += updateXCoord(fen[index])
+            index++
         }
         index++
     }
@@ -77,7 +81,7 @@ function translateFenIndex(x, y){
 function updateUIController(coord, fenValue){
     if (isNumeric(fenValue)) return
     const colorNType = getColorNTypeByFen(fenValue)
-    updateUI(coord, colorNType, fenValue)
+    updateUI(coord, colorNType)
 } 
 
 
@@ -97,8 +101,8 @@ function getColorNTypeByFen(fenValue){
 }
 
 
-function updateUI(coord, colorNType, fenValue){
-    const element = Object.assign(document.createElement("div"), { className: `pieces ${colorNType.color} ${coord} ${fenValue} ${colorNType.type}`})
+function updateUI(coord, colorNType){
+    const element = Object.assign(document.createElement("div"), { className: `pieces ${colorNType.color} ${coord} ${colorNType.type}`})
     elements.board?.appendChild(element)
 } 
 
@@ -116,11 +120,25 @@ function convertToNumber(value){
 }
 
 
-function saveFen(fen){
-    localStorage.setItem(globals.index, fen)
-    globals.index++
-    console.log(`FEN salvo no índice: ${globals.index - 1}
-        ${fen}`)
+function saveHistory(){
+    const history = chess.history().at(-1)
+    if (!history) return
+    const addNewHistory = JSON.parse(localStorage.getItem('history') || '[]')
+    addNewHistory.push(history)
+    localStorage.setItem('history', JSON.stringify(addNewHistory))
+}
+
+
+export function saveFen(fen){
+    const addNewFen = JSON.parse(localStorage.getItem('fen') || '[]')
+    addNewFen.push(fen)
+    localStorage.setItem('fen', JSON.stringify(addNewFen))
+    initFenVariables(fen)
+}
+
+
+function saveGlobals(){
+    localStorage.setItem('globals', JSON.stringify(globals))
 }
 
 
@@ -131,5 +149,4 @@ function isLocalStorageEmpty(){
 
 function clearLocalStorage(){
     localStorage.clear()
-    globals.index = 0
 }

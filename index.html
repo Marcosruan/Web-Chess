@@ -8,7 +8,18 @@
 </head>
 <body>
     <main class="container center-center flex column bg-transparent">
-        <div id="mobie-moves-history" class="flex mobile-only"></div>
+        <div id="mobile-moves-history" class="flex mobile-only">
+            <div class="history white-color">♙Nxa3+</div>
+            <div class="history black-color">♕Qxa5+</div>
+            <div class="history white-color">e4</div>
+            <div class="history black-color">♕Qxa5+</div>
+            <div class="history white-color">♙Nxa3+</div>
+            <div class="history black-color">♕Qxa5+</div>
+            <div class="history white-color">♙Nxa3+</div>
+            <div class="history black-color">♕Qxa5+</div>
+            <div class="history white-color">e4</div>
+            <div class="history black-color active-history">♕Qxa5+</div>
+        </div>
         <div id="match-container" class="flex column">
             <div id="oponent-bar" class="flex items-center bg-transparent">
                 <div id="oponent-group" class="flex">
@@ -25,39 +36,39 @@
                 <button id="settings-button" class="mobile-settings-button flex center-center desktop-not"></button>
             </div>
             <div id="chess-board">
-                <!-- <div class="pieces b a8 r br"></div>
-                <div class="pieces b b8 n bn"></div>
-                <div class="pieces b c8 b bb"></div>
-                <div class="pieces b d8 q bq"></div>
-                <div class="pieces b e8 k bk"></div>
-                <div class="pieces b f8 b bb"></div>
-                <div class="pieces b g8 n bn"></div>
-                <div class="pieces b h8 r br"></div>
-                <div class="pieces b a7 p bp"></div>
-                <div class="pieces b b7 p bp"></div>
-                <div class="pieces b c7 p bp"></div>
-                <div class="pieces b d7 p bp"></div>
-                <div class="pieces b e7 p bp"></div>
-                <div class="pieces b f7 p bp"></div>
-                <div class="pieces b g7 p bp"></div>
-                <div class="pieces b h7 p bp"></div>
+                <!-- <div class="pieces b a8 br"></div>
+                <div class="pieces b b8 bn"></div>
+                <div class="pieces b c8 bb"></div>
+                <div class="pieces b d8 bq"></div>
+                <div class="pieces b e8 bk"></div>
+                <div class="pieces b f8 bb"></div>
+                <div class="pieces b g8 bn"></div>
+                <div class="pieces b h8 br"></div>
+                <div class="pieces b a7 bp"></div>
+                <div class="pieces b b7 bp"></div>
+                <div class="pieces b c7 bp"></div>
+                <div class="pieces b d7 bp"></div>
+                <div class="pieces b e7 bp"></div>
+                <div class="pieces b f7 bp"></div>
+                <div class="pieces b g7 bp"></div>
+                <div class="pieces b h7 bp"></div>
 
-                <div class="pieces w a1 R wr"></div>
-                <div class="pieces w b1 N wn"></div>
-                <div class="pieces w c1 B wb"></div>
-                <div class="pieces w d1 Q wq"></div>
-                <div class="pieces w e1 K wk"></div>
-                <div class="pieces w f1 B wb"></div>
-                <div class="pieces w g1 N wn"></div>
-                <div class="pieces w h1 R wr"></div>
-                <div class="pieces w a2 P wp"></div>
-                <div class="pieces w b2 P wp"></div>
-                <div class="pieces w c2 P wp"></div>
-                <div class="pieces w d2 P wp"></div>
-                <div class="pieces w e2 P wp"></div>
-                <div class="pieces w f2 P wp"></div>
-                <div class="pieces w g2 P wp"></div>
-                <div class="pieces w h2 P wp"></div> -->
+                <div class="pieces w a1 wr"></div>
+                <div class="pieces w b1 wn"></div>
+                <div class="pieces w c1 wb"></div>
+                <div class="pieces w d1 wq"></div>
+                <div class="pieces w e1 wk"></div>
+                <div class="pieces w f1 wb"></div>
+                <div class="pieces w g1 wn"></div>
+                <div class="pieces w h1 wr"></div>
+                <div class="pieces w a2 wp"></div>
+                <div class="pieces w b2 wp"></div>
+                <div class="pieces w c2 wp"></div>
+                <div class="pieces w d2 wp"></div>
+                <div class="pieces w e2 wp"></div>
+                <div class="pieces w f2 wp"></div>
+                <div class="pieces w g2 wp"></div>
+                <div class="pieces w h2 wp"></div> -->
             </div>
             <div id="player-bar" class="flex items-center bg-transparent">
                 <div id="player-info" class="flex column bg-transparent">
@@ -76,7 +87,18 @@
                 <button id="mobile-settings-button" class="settings-button flex center-center bg-transparent tablet-not">
                 </button>
             </div>
-            <div id="moves-history" class="flex column"></div>
+            <ul id="moves-history" class="flex">
+            <li class="history white-color">♙Nxa3+</li>
+            <li class="history black-color">♕Qxa5+</li>
+            <li class="history white-color">e4</li>
+            <li class="history black-color">♕Qxa5+</li>
+            <li class="history white-color">♙Nxa3+</li>
+            <li class="history black-color">♕Qxa5+</li>
+            <li class="history white-color">♙Nxa3+</li>
+            <li class="history black-color">♕Qxa5+</li>
+            <li class="history white-color">e4</li>
+            <li class="history black-color active-history">♕Qxa5+</li>
+            </ul>
             <div id="prev-next-move-bar" class="flex items-center bg-transparent">
                 <button id="prev-button" class="flex center-center desktop-not"></button>
                 <button id="next-button" class="flex center-center desktop-not"></button>

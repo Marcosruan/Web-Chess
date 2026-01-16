@@ -3,4 +3,10 @@
         background: url(../../assets/icons/settings-icon-w.svg) center/cover no-repeat;
         width: 3vw;
     }
+
+    .history{
+        height: 12.5%;
+        width: 20%;
+        font-size: 2vh;
+    }
 }

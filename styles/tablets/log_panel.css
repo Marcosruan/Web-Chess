@@ -10,6 +10,9 @@
 
     #moves-history{
         height: 10vw;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        flex-wrap: nowrap;
     }
 
     #prev-next-move-bar{
@@ -31,5 +34,11 @@
     #prev-button, #next-button{
         height: 5vw;
         width: 10vw;
+    }
+
+    .history{
+        height: 10vw;
+        width: 10vw;
+        font-size: 1.8vh;
     }
 }
