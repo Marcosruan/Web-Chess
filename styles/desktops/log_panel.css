@@ -4,6 +4,19 @@
         width: 3vw;
     }
 
+    .moves-history{
+        flex-wrap: wrap;
+        height: 33.38vw;
+        overflow-y: auto;
+        overflow-x: hidden;
+        align-content: flex-start;
+        justify-content: flex-start;
+        background-color: var(--cores-gray-white);
+        width: 100%;
+        scroll-behavior: smooth;
+        white-space: nowrap;
+    }
+
     .history{
         height: 12.5%;
         width: 20%;

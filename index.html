@@ -8,28 +8,19 @@
 </head>
 <body>
     <main class="container center-center flex column bg-transparent">
-        <div id="mobile-moves-history" class="flex mobile-only">
-            <div class="history white-color">♙Nxa3+</div>
-            <div class="history black-color">♕Qxa5+</div>
-            <div class="history white-color">e4</div>
-            <div class="history black-color">♕Qxa5+</div>
-            <div class="history white-color">♙Nxa3+</div>
-            <div class="history black-color">♕Qxa5+</div>
-            <div class="history white-color">♙Nxa3+</div>
-            <div class="history black-color">♕Qxa5+</div>
-            <div class="history white-color">e4</div>
-            <div class="history black-color active-history">♕Qxa5+</div>
-        </div>
+        <ul class="flex mobile-only moves-history">
+
+        </ul>
         <div id="match-container" class="flex column">
             <div id="oponent-bar" class="flex items-center bg-transparent">
                 <div id="oponent-group" class="flex">
                     <div id="oponent-avatar" class="flex"></div>
                     <div id="oponent-info" class="flex column bg-transparent">
                         <div id="oponent-nickname" class="flex items-center bg-transparent">
-                            <p id="oponent-nickname-p">Oponent</p>
+                            <p id="oponent-nickname-p">Oponent (1000)</p>
                         </div>
                         <div id="oponent-score" class="flex bg-transparent">
-                            <p id="oponent-score-p">1000</p>
+                            <ul id="oponent-score-p"></ul>
                         </div>
                     </div>
                 </div>
@@ -73,10 +64,10 @@
             <div id="player-bar" class="flex items-center bg-transparent">
                 <div id="player-info" class="flex column bg-transparent">
                     <div id="player-nickname" class="flex items-center bg-transparent">
-                        <p id="player-nickname-p">Player</p>
+                        <p id="player-nickname-p">Player (1000)</p>
                     </div>
                     <div id="player-score" class="flex bg-transparent">
-                        <p id="player-score-p">1000</p>
+                        <ul id="player-score-p"></ul>
                     </div>
                 </div>
                 <div id="player-avatar" class="flex"></div>
@@ -87,17 +78,8 @@
                 <button id="mobile-settings-button" class="settings-button flex center-center bg-transparent tablet-not">
                 </button>
             </div>
-            <ul id="moves-history" class="flex">
-            <li class="history white-color">♙Nxa3+</li>
-            <li class="history black-color">♕Qxa5+</li>
-            <li class="history white-color">e4</li>
-            <li class="history black-color">♕Qxa5+</li>
-            <li class="history white-color">♙Nxa3+</li>
-            <li class="history black-color">♕Qxa5+</li>
-            <li class="history white-color">♙Nxa3+</li>
-            <li class="history black-color">♕Qxa5+</li>
-            <li class="history white-color">e4</li>
-            <li class="history black-color active-history">♕Qxa5+</li>
+            <ul class="moves-history flex">
+
             </ul>
             <div id="prev-next-move-bar" class="flex items-center bg-transparent">
                 <button id="prev-button" class="flex center-center desktop-not"></button>

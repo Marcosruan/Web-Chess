@@ -1,5 +1,6 @@
 import * as utils from './utils.js'
 import {globals, elements, COORD_REGEX} from './main.js'
+import { capturedPieceTypeController } from './pieceAdvantageValue.js'
 
 
 export function makeCapture() {
@@ -8,6 +9,7 @@ export function makeCapture() {
     
     potentialVictims.forEach(victim => {
         if (victim !== elements.pieceElement) {
+            capturedPieceTypeController(victim)
             victim?.remove()
         }
     })

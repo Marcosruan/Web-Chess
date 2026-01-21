@@ -8,11 +8,15 @@
         height: 6vw; 
     }
 
-    #moves-history{
-        height: 10vw;
-        overflow-x: scroll;
-        overflow-y: hidden;
+    .moves-history{
         flex-wrap: nowrap;
+        height: 10vw;
+        align-content: flex-start;
+        justify-content: flex-start;
+        background-color: var(--cores-gray-white);
+        width: 100%;
+        scroll-behavior: smooth;
+        white-space: nowrap;
     }
 
     #prev-next-move-bar{

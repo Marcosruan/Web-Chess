@@ -1,6 +1,9 @@
 import { chess, elements } from './main.js'
+import { movesHistoryController, reloadHistoryLog, clearHistoryLog } from './movesHistory.js'
+import { reloadCapturedPieceList, reloadAdvantageValues, clearScore, updateScoreUI, resetVariables } from './pieceAdvantageValue.js'
 
 localStorage?.removeItem('prompts_storage') 
+
 
 const globals = {
     position: null,
@@ -37,6 +40,11 @@ function toSavedPosition(){
     chess.load(fen)
     initFenVariables(fen)
     updateBoardByFen(globals.position)
+    reloadHistoryLog()
+    clearScore()
+    reloadCapturedPieceList()
+    reloadAdvantageValues()
+    updateScoreUI()
 }
 
 
@@ -47,6 +55,9 @@ export function toDefaultPositionController(){
     chess.load(defaultFen)
     saveFen(defaultFen)
     updateBoardByFen(globals.position)
+    clearHistoryLog()
+    clearScore()
+    resetVariables()
 }
 
 
@@ -102,7 +113,7 @@ function getColorNTypeByFen(fenValue){
 
 
 function updateUI(coord, colorNType){
-    const element = Object.assign(document.createElement("div"), { className: `pieces ${colorNType.color} ${coord} ${colorNType.type}`})
+    const element = Object.assign(document.createElement("div"), { className: `pieces ${colorNType.color} ${colorNType.type} ${coord}`})
     elements.board?.appendChild(element)
 } 
 
@@ -126,6 +137,7 @@ function saveHistory(){
     const addNewHistory = JSON.parse(localStorage.getItem('history') || '[]')
     addNewHistory.push(history)
     localStorage.setItem('history', JSON.stringify(addNewHistory))
+    movesHistoryController(history)
 }
 
 
