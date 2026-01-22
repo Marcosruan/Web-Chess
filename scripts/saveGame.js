@@ -41,6 +41,8 @@ function toSavedPosition() {
   reloadCapturedPieceList();
   reloadAdvantageValues();
   updateScoreUI();
+  const isGameOver = JSON.parse(localStorage.getItem('gameOver'));
+  elements.gameOver = isGameOver ?? false;
 }
 
 export function toDefaultPositionController() {
@@ -53,6 +55,8 @@ export function toDefaultPositionController() {
   clearHistoryLog();
   clearScore();
   resetVariables();
+  elements.gameOver = false;
+  localStorage.setItem('gameOver', false)
 }
 
 function clearBoard() {

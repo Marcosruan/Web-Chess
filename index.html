@@ -89,12 +89,17 @@
     </main>
     <div id="modal">
         <div id="modal-content">
-            <button id="theme-mode"></button>
+            <button id="theme-mode" class="modal-button"></button>
             <span>Change the theme color of the page</span>
-            <button id="reset-button">Reset</button>
+            <button id="reset-button" class="modal-button">Reset</button>
             <span>Reset board to the default position.</span>
             <strong>After reseting, the previous match will no longer be available to play.</strong>
         </div>
+    </div>
+    <div id="game-over-display">
+        <p class="game-over-p">Game is over by insuficient material</p>
+        <button class="game-over-button" id="play-again-button">Play Again</button>
+        <button class="game-over-button" id="explore-button">Explore Moves</button>
     </div>
 </body>
 

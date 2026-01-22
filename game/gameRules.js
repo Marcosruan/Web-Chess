@@ -2,8 +2,8 @@ import { globals, elements, COORD_REGEX, chess } from "./main.js";
 
 
 export function getDrawReason() {
-  if (chess.isInsufficientMaterial()) return "draw by insuficient material";
-  if (isDrawByFiftyMoves()) return "draw by fifty moves";
+  if (chess.isInsufficientMaterial()) return "insuficient material";
+  if (isDrawByFiftyMoves()) return "fifty moves rule";
   if (chess.isStalemate()) return "stalemate";
   if (chess.isThreefoldRepetition()) return "three fold repetition";
   return "draw";

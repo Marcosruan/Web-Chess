@@ -130,9 +130,3 @@ export function createPossibleCastlingIndicator(coord) {
   });
   elements.board.appendChild(element);
 }
-
-export function createEndGameDisplay(reason){
-  const div = Object.assign(document.createElement('div'), {className: 'EndGameDisplay'})
-  div.textContent = `${reason}`
-  elements.board.appendChild(div)
-}

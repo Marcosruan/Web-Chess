@@ -3,6 +3,7 @@ import * as game from "./gameRules.js";
 import * as ui from "./ui.js";
 import * as utils from "../scripts/utils.js";
 import { saveFen, localStorageController } from "../scripts/saveGame.js";
+import { createGameOverParagraph } from '../scripts/gameOver.js'
 
 export const chess = new Chess();
 export const COORD_REGEX = /([a-h][1-8])/;
@@ -16,6 +17,7 @@ export const globals = {
 };
 
 export const elements = {
+  gameOver: false,
   board: document.querySelector("#chess-board"),
   get whiteKing() {
     return this.board?.querySelector(".wk");
@@ -49,7 +51,7 @@ export const elements = {
 };
 
 elements.board.addEventListener("mousedown", (e) => {
-  if (e.button !== 0 || globals.promoting === true) return;
+  if (e.button !== 0 || globals.promoting === true || elements.gameOver) return;
   const coords = utils.getBoardCoords(e);
   const translatedCoords = utils.translateCoords(coords);
   const pieceColor = utils.getPieceColor(e);
@@ -57,7 +59,7 @@ elements.board.addEventListener("mousedown", (e) => {
 });
 
 elements.board.addEventListener("drop", (e) => {
-  if (globals.promoting === true) return;
+  if (globals.promoting === true || elements.gameOver) return;
   const coords = utils.getBoardCoords(e);
   const translatedCoords = utils.translateCoords(coords);
   const pieceColor = utils.getPieceColor(e);
@@ -197,14 +199,14 @@ function possibleCastlingController() {
   }
 }
 
-function gameOverController() {
-  debugger
+function gameOverController() { //testar lógica do game over ---------------------------------------------------
   if (chess.isGameOver()) {
     if (chess.isCheckmate()) {
       ui.createCheckmateDisplay();
+      createGameOverParagraph('checkmate');
     } else if (chess.isDraw()) {
       const reason = game.getDrawReason();
-      ui.createEndGameDisplay(reason)
+      createGameOverParagraph(reason);
     }
   }
 }
