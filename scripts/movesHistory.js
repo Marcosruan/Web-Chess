@@ -23,7 +23,7 @@ function clearActiveHistory(){
 function updateHistoryLog(text, color){
     movesHistory.forEach(ul => {
         const li = Object.assign(document.createElement("li"), { className: `history ${color} active-history`})
-        li.innerText = `${text}`
+        li.textContent = `${text}`
         ul?.appendChild(li)     
     })
 }

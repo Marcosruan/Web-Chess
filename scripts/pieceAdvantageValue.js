@@ -66,21 +66,20 @@ function saveAdvantageValue(){
 }
 
 
-export function updateScoreUI(){
-    debugger
+export function updateScoreUI(){ // refatorar ----------------------------------------------------
     const { white:whiteList, black:blackList} = capturedPieceList
     const {white:whiteValue, black:blackValue} = values
     if (blackList.length > 0){
         for (let i = 0; i < blackList.length; i++){
             const li = document.createElement("li")
-            li.innerText = `${blackList[i]}`
+            li.textContent = `${blackList[i]}`
             oponentScore.appendChild(li)
         }
     }
     if (whiteList.length > 0){
         for (let i = 0; i < whiteList.length; i++){
             const li = document.createElement("li")
-            li.innerText = `${whiteList[i]}`
+            li.textContent = `${whiteList[i]}`
             playerScore.appendChild(li)
         }
     }
@@ -88,11 +87,11 @@ export function updateScoreUI(){
     if (subtractionValue === 0) return
     if (subtractionValue > 0){
         const li = document.createElement("li")
-        li.innerText = `+${subtractionValue}`
+        li.textContent = `+${subtractionValue}`
         playerScore.prepend(li)
     }else{
         const li = document.createElement("li")
-        li.innerText = `+${-subtractionValue}`
+        li.textContent = `+${-subtractionValue}`
         oponentScore.appendChild(li)
     }
 }
@@ -108,7 +107,6 @@ export function reloadCapturedPieceList(){
 
 
 export function reloadAdvantageValues(){
-    debugger
     const advantageValue = JSON.parse(localStorage.getItem('advantageValue'))
     if (!advantageValue) return
     const { white, black } = advantageValue

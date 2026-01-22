@@ -50,7 +50,7 @@
 
 #oponent-nickname, #player-nickname{
     height: 50%;
-    width: 100%;
+    width: 24vh;
 }
 
 #player-nickname{
@@ -60,7 +60,7 @@
 #oponent-score, #player-score{
     align-items: flex-start;    
     height: 50%;
-    width: 100%;
+    width: 24vh;
 }
 
 #player-score{
@@ -96,6 +96,10 @@
 #oponent-score-p, #player-score-p{
     font-size: 2vh;
     color: var(--cores-white);
+}
+
+#oponent-group{
+    width: 50%;
 }
 
 /* #square{
