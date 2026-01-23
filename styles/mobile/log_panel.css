@@ -96,3 +96,23 @@
     font-size: 1.7vh;
     cursor: pointer;
 }
+
+.black-color{
+    color: rgb(0, 0, 0);
+}
+
+.white-color{
+    color: aliceblue;
+}
+
+.black-color:hover{
+    background-color: #c9c9c9;
+}
+
+.white-color:hover{
+    background-color: #2e2e2e;
+}
+
+.active-history{
+    border: solid 1px rgb(255, 255, 255) !important;
+}
