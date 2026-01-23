@@ -1,4 +1,5 @@
-import { chess, elements } from "../game/main.js";
+import { checkController, chess, elements } from "../game/main.js";
+import * as ui from '../game/ui.js'
 import { movesHistoryController, reloadHistoryLog, clearHistoryLog } from "./movesHistory.js";
 import { reloadCapturedPieceList, reloadAdvantageValues, clearScore, updateScoreUI, resetVariables } from "./pieceAdvantageValue.js";
 
@@ -43,6 +44,8 @@ function toSavedPosition() {
   updateScoreUI();
   const isGameOver = JSON.parse(localStorage.getItem('gameOver'));
   elements.gameOver = isGameOver ?? false;
+  if (chess.isCheckmate()) ui.createCheckmateDisplay();
+  checkController()
 }
 
 export function toDefaultPositionController() {

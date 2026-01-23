@@ -131,7 +131,7 @@ export async function promotionController() {
   return make;
 }
 
-function checkController() {
+export function checkController() {
   ui.clearCheckDisplay();
   if (chess.inCheck() && !chess.isCheckmate()) ui.createCheckDisplay();
 }

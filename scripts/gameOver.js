@@ -10,7 +10,7 @@ export function createGameOverParagraph(reason){
     localStorage.setItem('gameOver', true)
     gameOverDisplay.style.display = "block";
     const p = Object.assign(document.createElement('p'), {className: 'game-over-p', textContent: `Game is over by ${reason}`});
-    gameOverDisplay?.append(p);
+    gameOverDisplay?.prepend(p);
 }
 
 playAgain?.addEventListener('click', () =>{
