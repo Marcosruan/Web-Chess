@@ -44,8 +44,8 @@ function toSavedPosition() {
   updateScoreUI();
   const isGameOver = JSON.parse(localStorage.getItem('gameOver'));
   elements.gameOver = isGameOver ?? false;
-  if (chess.isCheckmate()) ui.createCheckmateDisplay();
   checkController()
+  if (chess.isCheckmate()) ui.createCheckmateDisplay();
 }
 
 export function toDefaultPositionController() {
@@ -62,11 +62,11 @@ export function toDefaultPositionController() {
   localStorage.setItem('gameOver', false)
 }
 
-function clearBoard() {
+export function clearBoard() {
   elements.board?.replaceChildren();
 }
 
-function updateBoardByFen(fen) {
+export function updateBoardByFen(fen) {
   let y = 8,
     index = 0;
   for (y; y > 0; y--) {

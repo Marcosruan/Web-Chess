@@ -1,6 +1,5 @@
 import { globals, elements, chess } from "../game/main.js";
 import { updatePossibleMoveDisplay } from "../game/ui.js";
-import { toDefaultPositionController } from './saveGame.js';
 
 export function isWhiteToMove() {
   return chess.turn() === "w";

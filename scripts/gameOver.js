@@ -6,11 +6,20 @@ const playAgain = document.getElementById('play-again-button');
 const explore = document.getElementById('explore-button');
 
 export function createGameOverParagraph(reason){
-    elements.gameOver = true
-    localStorage.setItem('gameOver', true)
+    setGameOverTrue()
     gameOverDisplay.style.display = "block";
     const p = Object.assign(document.createElement('p'), {className: 'game-over-p', textContent: `Game is over by ${reason}`});
     gameOverDisplay?.prepend(p);
+}
+
+export function setGameOverTrue(){
+    elements.gameOver = true
+    localStorage.setItem('gameOver', true)
+}
+
+export function setGameOverFalse(){
+    elements.gameOver = false;
+    localStorage.setItem('gameOver', false);
 }
 
 playAgain?.addEventListener('click', () =>{
