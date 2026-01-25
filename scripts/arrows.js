@@ -3,6 +3,8 @@ import { createCheckmateDisplay } from '../game/ui.js'
 import { updateBoardByFen, clearBoard } from './saveGame.js';
 import { setGameOverTrue, setGameOverFalse } from './gameOver.js';
 
+const mobile_moves_history = document.getElementById('mobile-moves-history')
+const moves_history = document.getElementById('moves-history')
 const prev_button = document.querySelector('#prev-button');
 const next_button = document.querySelector('#next-button');
 const mobile_prev_button = document.querySelector('#mobile-prev-button');
@@ -10,6 +12,40 @@ const mobile_next_button = document.querySelector('#mobile-next-button');
 
 const globals = {
     index: 0
+}
+
+mobile_moves_history.addEventListener('click', (e) => {
+    goToMoveByClickController(e)
+})
+
+moves_history.addEventListener('click', (e) => {
+    goToMoveByClickController(e)
+})
+
+function goToMoveByClickController(e, mobile){
+    if (!(e.target.classList.contains('history'))) return
+    const fenList = JSON.parse(localStorage.getItem('fen'));
+    const index = parseInt(e.target.classList[2]);
+    const moveIndex = index + 1
+    const fenTarget = fenList.at(moveIndex);
+    const lastFen = fenList.at(-1);
+    isLastPosition(lastFen, fenTarget);
+    initIndexByClick(index - fenList.length)
+    changeActiveLogByClick(e.target, mobile);
+    updateBoardController(fenTarget);
+    saveGlobal();
+}
+
+function initIndexByClick(newIndex){
+    globals.index = newIndex + 2;
+}
+
+function changeActiveLogByClick(li){
+    const atuais = document.querySelectorAll('.active-history');
+    atuais.forEach(atual => {
+        atual.classList?.remove('active-history');
+        li.classList?.add('active-history');
+    })
 }
 
 prev_button.addEventListener('click', prevController);

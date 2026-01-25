@@ -1,6 +1,6 @@
 import { checkController, chess, elements } from "../game/main.js";
 import * as ui from '../game/ui.js'
-import { movesHistoryController, reloadHistoryLog, clearHistoryLog } from "./movesHistory.js";
+import { movesHistoryController, reloadHistoryLog, clearHistoryLog, initLiMovesIndex, resetLiMovesIndex } from "./movesHistory.js";
 import { reloadCapturedPieceList, reloadAdvantageValues, clearScore, updateScoreUI, resetVariables } from "./pieceAdvantageValue.js";
 
 localStorage?.removeItem("prompts_storage");
@@ -42,6 +42,7 @@ function toSavedPosition() {
   reloadCapturedPieceList();
   reloadAdvantageValues();
   updateScoreUI();
+  initLiMovesIndex()
   const isGameOver = JSON.parse(localStorage.getItem('gameOver'));
   elements.gameOver = isGameOver ?? false;
   checkController()
@@ -58,6 +59,7 @@ export function toDefaultPositionController() {
   clearHistoryLog();
   clearScore();
   resetVariables();
+  resetLiMovesIndex()
   elements.gameOver = false;
   localStorage.setItem('gameOver', false)
 }
