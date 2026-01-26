@@ -1,5 +1,4 @@
 #game-over-display{
-    /* display: flex; */
     display: none;
     flex-direction: column;
     align-items: center;
@@ -39,12 +38,16 @@
 
 @media (600px < width <= 1024px) {
     #game-over-display{
-        width: 50vh;
-        height: 70vh;
+        width: 40vh;
+        height: 60vh;
+    }
+
+    .game-over-p{
+        font-size: 2.5rem;
     }
 
     .game-over-button{
-        width: 15rem;
+        width: 25rem;
         height: 5rem;
         font-size: 3rem;
     }

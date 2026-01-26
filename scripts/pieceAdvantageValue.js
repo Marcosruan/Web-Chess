@@ -66,7 +66,7 @@ function saveAdvantageValue(){
 }
 
 
-export function updateScoreUI(){ // refatorar ----------------------------------------------------
+export function updateScoreUI(){
     const { white:whiteList, black:blackList} = capturedPieceList
     const {white:whiteValue, black:blackValue} = values
     if (blackList.length > 0){
