@@ -1,6 +1,6 @@
 @media (min-width: 1025px){
     main.container{
-        justify-content: space-around;
+        justify-content: space-between;
         flex-direction: row;
         width: 64.13vw; 
     }

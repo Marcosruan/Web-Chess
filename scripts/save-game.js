@@ -1,7 +1,7 @@
-import { checkController, chess, elements } from "../game/main.js";
-import * as ui from '../game/ui.js'
-import { movesHistoryController, reloadHistoryLog, clearHistoryLog, initLiMovesIndex, resetLiMovesIndex } from "./movesHistory.js";
-import { reloadCapturedPieceList, reloadAdvantageValues, clearScore, updateScoreUI, resetVariables } from "./pieceAdvantageValue.js";
+import { checkController, chess, elements, unflipBoard } from "../game/main.js";
+import * as ui from "../game/ui.js";
+import { movesHistoryController, reloadHistoryLog, clearHistoryLog, initLiMovesIndex, resetLiMovesIndex } from "./moves-history.js";
+import { reloadCapturedPieceList, reloadAdvantageValues, clearScore, updateScoreUI, resetVariables } from "./piece-advantage-value.js";
 
 localStorage?.removeItem("prompts_storage");
 
@@ -42,10 +42,10 @@ function toSavedPosition() {
   reloadCapturedPieceList();
   reloadAdvantageValues();
   updateScoreUI();
-  initLiMovesIndex()
-  const isGameOver = JSON.parse(localStorage.getItem('gameOver'));
+  initLiMovesIndex();
+  const isGameOver = JSON.parse(localStorage.getItem("gameOver"));
   elements.gameOver = isGameOver ?? false;
-  checkController()
+  checkController();
   if (chess.isCheckmate()) ui.createCheckmateDisplay();
 }
 
@@ -59,9 +59,10 @@ export function toDefaultPositionController() {
   clearHistoryLog();
   clearScore();
   resetVariables();
-  resetLiMovesIndex()
+  resetLiMovesIndex();
+  unflipBoard();
   elements.gameOver = false;
-  localStorage.setItem('gameOver', false)
+  localStorage.setItem("gameOver", false);
 }
 
 export function clearBoard() {

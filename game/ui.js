@@ -1,6 +1,6 @@
 import * as utils from "../scripts/utils.js";
 import { globals, elements, COORD_REGEX } from "./main.js";
-import { capturedPieceTypeController } from "../scripts/pieceAdvantageValue.js";
+import { capturedPieceTypeController } from "../scripts/piece-advantage-value.js";
 
 export function makeCapture() {
   const { nextPieceCoord } = globals;
@@ -17,12 +17,16 @@ export function makeCapture() {
 }
 
 export function createPromotionList(ulCoord) {
-  const promotions = ["bclose", "bb", "br", "bn", "bq", "wq", "wn", "wr", "wb", "wclose"];
-  const ul = Object.assign(document.createElement("ul"), {className: `pieces promotionList ${ulCoord.coord}`});
+  const promotions = [ "bclose", "bb", "br", "bn", "bq", "wq", "wn", "wr", "wb", "wclose" ];
+  const ul = Object.assign(document.createElement("ul"), {
+    className: `pieces promotionList ${ulCoord.coord}`,
+  });
   elements.board.appendChild(ul);
   let index = ulCoord.index;
   for (let i = 0; i < 5; i++) {
-    const li = Object.assign(document.createElement("li"), {className: `${promotions[index++]} pieces promotionItem `});
+    const li = Object.assign(document.createElement("li"), {
+      className: `${promotions[index++]} pieces promotionItem `,
+    });
     ul.appendChild(li);
   }
 }

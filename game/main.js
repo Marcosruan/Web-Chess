@@ -1,9 +1,9 @@
 import { Chess } from "https://cdn.jsdelivr.net/npm/chess.js@1.0.0-beta.8/+esm";
-import * as game from "./gameRules.js";
+import * as game from "./game-rules.js";
 import * as ui from "./ui.js";
 import * as utils from "../scripts/utils.js";
-import { saveFen, localStorageController } from "../scripts/saveGame.js";
-import { createGameOverParagraph } from '../scripts/gameOver.js'
+import { saveFen, localStorageController } from "../scripts/save-game.js";
+import { createGameOverParagraph } from "../scripts/game-over.js";
 
 export const chess = new Chess();
 export const COORD_REGEX = /([a-h][1-8])/;
@@ -52,7 +52,8 @@ export const elements = {
 
 elements.board.addEventListener("mousedown", (e) => {
   if (e.button !== 0 || globals.promoting === true || elements.gameOver) return;
-  const coords = utils.getBoardCoords(e);
+  const inverted = utils.isBoardInverted()
+  const coords = utils.getBoardCoords(e, inverted);
   const translatedCoords = utils.translateCoords(coords);
   const pieceColor = utils.getPieceColor(e);
   verifyUserClicks(translatedCoords, pieceColor);
@@ -60,7 +61,8 @@ elements.board.addEventListener("mousedown", (e) => {
 
 elements.board.addEventListener("drop", (e) => {
   if (globals.promoting === true || elements.gameOver) return;
-  const coords = utils.getBoardCoords(e);
+  const inverted = utils.isBoardInverted()
+  const coords = utils.getBoardCoords(e, inverted);
   const translatedCoords = utils.translateCoords(coords);
   const pieceColor = utils.getPieceColor(e);
   verifyUserClicks(translatedCoords, pieceColor);
@@ -69,7 +71,11 @@ elements.board.addEventListener("drop", (e) => {
 async function verifyUserClicks(coord, pieceColor) {
   const element =
     document.querySelector(`.${coord}:not(.moved)`) ?? elements.board;
-  if (globals.currentPieceCoord != null && globals.currentPieceCoord != undefined && !(chess.turn() === `${pieceColor}`)) {
+  if (
+    globals.currentPieceCoord != null &&
+    globals.currentPieceCoord != undefined &&
+    !(chess.turn() === `${pieceColor}`)
+  ) {
     globals.nextPieceCoord = coord;
     await mainController();
     globals.currentPieceCoord = null;
@@ -101,6 +107,7 @@ async function mainController() {
     movePieceController();
     saveFen(chess.fen());
     gameOverController();
+    flipBoardController();
   }
 }
 
@@ -199,16 +206,25 @@ function possibleCastlingController() {
   }
 }
 
-function gameOverController() { //testar lógica do game over ---------------------------------------------------
+function gameOverController() {
   if (chess.isGameOver()) {
     if (chess.isCheckmate()) {
       ui.createCheckmateDisplay();
-      createGameOverParagraph('checkmate');
+      createGameOverParagraph("checkmate");
     } else if (chess.isDraw()) {
       const reason = game.getDrawReason();
       createGameOverParagraph(reason);
     }
   }
+}
+
+function flipBoardController(){
+  unflipBoard()
+  if (chess.turn() === 'b' && !chess.isCheckmate()) elements.board?.classList.add('board-flipped')
+}
+
+export function unflipBoard(){
+  elements.board?.classList.remove('board-flipped')
 }
 
 elements.board.addEventListener("dragover", (e) => {

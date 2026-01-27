@@ -1,4 +1,4 @@
-import { toDefaultPositionController } from './saveGame.js';
+import { toDefaultPositionController } from './save-game.js';
 const modal = document.querySelector("#modal");
 const button = document.querySelector("#settings-button");
 const mobileButton = document.querySelector("#mobile-settings-button");

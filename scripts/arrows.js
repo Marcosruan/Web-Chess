@@ -1,7 +1,7 @@
 import { chess , checkController } from '../game/main.js'
 import { createCheckmateDisplay } from '../game/ui.js'
-import { updateBoardByFen, clearBoard } from './saveGame.js';
-import { setGameOverTrue, setGameOverFalse } from './gameOver.js';
+import { updateBoardByFen, clearBoard } from './save-game.js';
+import { setGameOverTrue, setGameOverFalse } from './game-over.js';
 
 const mobile_moves_history = document.getElementById('mobile-moves-history')
 const moves_history = document.getElementById('moves-history')

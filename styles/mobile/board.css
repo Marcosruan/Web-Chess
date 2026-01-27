@@ -12,6 +12,14 @@
     width: 100vw;
 }
 
+.board-flipped {
+    transform: rotate(180deg);
+}
+
+.board-flipped .pieces{
+    transform: rotate(180deg);
+}
+
 #oponent-bar, #player-bar{
     justify-content: space-between;
     height: 12.5vw;
@@ -86,6 +94,7 @@
     & *{
         position: absolute;
     }
+    transition: all 0.5s ease-in-out;
 }
 
 #oponent-nickname-p, #player-nickname-p{

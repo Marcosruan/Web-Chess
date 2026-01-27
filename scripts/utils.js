@@ -5,18 +5,27 @@ export function isWhiteToMove() {
   return chess.turn() === "w";
 }
 
-export function getBoardCoords(e) {
+export function getBoardCoords(e, inverted) {
   const boardRect = elements.board.getBoundingClientRect();
   const numCols = 8;
 
   const cellWidth = boardRect.width / numCols;
   const cellHeight = boardRect.height / numCols;
 
-  const xInsideBoard = e.clientX - boardRect.left;
-  const yInsideBoard = e.clientY - boardRect.bottom;
+  let coordX, coordY
+  if (inverted){
+    const xInsideBoard = e.clientX - boardRect.right;
+    const yInsideBoard = e.clientY - boardRect.top;
 
-  const coordX = Math.floor(xInsideBoard / cellWidth) + 1;
-  const coordY = Math.floor(yInsideBoard / cellHeight) * -1;
+    coordX = Math.floor(xInsideBoard / cellWidth) * -1;
+    coordY = Math.floor(yInsideBoard / cellHeight) + 1;
+  }else {
+    const xInsideBoard = e.clientX - boardRect.left;
+    const yInsideBoard = e.clientY - boardRect.bottom;
+  
+    coordX = Math.floor(xInsideBoard / cellWidth) + 1;
+    coordY = Math.floor(yInsideBoard / cellHeight) * -1;
+  }
 
   return { x: coordX, y: coordY };
 }
@@ -120,4 +129,8 @@ export function verifyAttackedPiece(possibleMoveElement) {
         coord === globals.enPassantAttackedSquare,
     );
   });
+}
+
+export function isBoardInverted(){
+  return elements.board.classList.contains('board-flipped') ? true : false;
 }
