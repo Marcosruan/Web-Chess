@@ -19,6 +19,8 @@ export const globals = {
 
 export const elements = {
   gameOver: false,
+  sound: true,
+  flip: true,
   board: document.querySelector("#chess-board"),
   get whiteKing() {
     return this.board?.querySelector(".wk");
@@ -120,7 +122,7 @@ async function getMoveObject() {
     return move;
   } catch (error) {
     console.log("Movimento inválido segundo as regras do xadrez", error);
-    audio.playIllegalSound()
+    if (elements.sound) audio.playIllegalSound()
   }
 }
 
@@ -144,7 +146,7 @@ export function checkController() {
   ui.clearCheckDisplay();
   if (chess.inCheck() && !chess.isCheckmate()){
     ui.createCheckDisplay();
-    audio.playCheckSound()
+    if (elements.sound) audio.playCheckSound()
   }
 }
 
@@ -220,13 +222,13 @@ function gameOverController() {
       const reason = game.getDrawReason();
       createGameOverParagraph(reason);
     }
-    audio.playGameEndSound()
+    if (elements.sound) audio.playGameEndSound()
   }
 }
 
 function flipBoardController(){
   unflipBoard()
-  if (chess.turn() === 'b' && !chess.isCheckmate()) elements.board?.classList.add('board-flipped')
+  if (chess.turn() === 'b' && !chess.isCheckmate() && elements.flip) elements.board?.classList.add('board-flipped')
 }
 
 export function unflipBoard(){

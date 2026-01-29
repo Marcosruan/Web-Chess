@@ -13,7 +13,7 @@ export function makeCapture() {
       victim?.remove();
     }
   });
-  audio.playCaptureSound()
+  if (elements.sound) audio.playCaptureSound()
 }
 
 export function createPromotionList(ulCoord) {
@@ -35,7 +35,7 @@ export function updatePromotingPiece(pieceType) {
   if (utils.isWhiteToMove()) elements.pieceElement?.classList.remove("wp");
   else elements.pieceElement?.classList.remove("bp");
   elements.pieceElement?.classList.add(`${pieceType}`);
-  audio.playPromoteSound()
+  if (elements.sound) audio.playPromoteSound()
 }
 
 export function deletePromotionList() {
@@ -58,7 +58,7 @@ export function updateRookWhenCastling(info) {
   const element = document.querySelector(`.${info.rookCurrentPosition}`);
   element?.classList.remove(info.rookCurrentPosition);
   element?.classList.add(info.rookNextPosition);
-  audio.playCastleSound()
+  if (elements.sound) audio.playCastleSound()
 }
 
 export function removePieceWhenEnPassant(pieceToRemove) {
@@ -71,7 +71,7 @@ export function moveUIPiece() {
   const { pieceElement } = elements;
   pieceElement?.classList.remove(currentPieceCoord);
   pieceElement?.classList.add(nextPieceCoord);
-  audio.playMoveSelfSound()
+  if (elements.sound) audio.playMoveSelfSound()
 }
 
 export function clearHighlightTrail() {
