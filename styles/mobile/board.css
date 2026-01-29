@@ -10,6 +10,7 @@
     border-radius: 7px;
     height: 125.5vw;
     width: 100vw;
+    overflow: hidden;
 }
 
 .board-flipped {
@@ -18,6 +19,10 @@
 
 .board-flipped .pieces{
     transform: rotate(180deg);
+}
+
+.pieces{
+    transition: transform 0.5s ease-in-out;
 }
 
 #oponent-bar, #player-bar{
@@ -94,7 +99,7 @@
     & *{
         position: absolute;
     }
-    transition: all 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out;
 }
 
 #oponent-nickname-p, #player-nickname-p{

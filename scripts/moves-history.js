@@ -14,7 +14,6 @@ export function movesHistoryController(text){
     updateHistoryLog(text, color)
 }
 
-
 function clearActiveHistory(){
     movesHistory.forEach(ul =>{
         const activeLi = ul?.querySelector('.active-history')
@@ -26,6 +25,7 @@ function updateHistoryLog(text, color){
     movesHistory.forEach(ul => {
         const li = Object.assign(document.createElement("li"), { className: `history ${color} ${globals.index} active-history`, textContent: `${text}` })
         ul?.appendChild(li);
+        li.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     })
     saveGlobals()
 }

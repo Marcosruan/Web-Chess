@@ -4,6 +4,7 @@ import * as ui from "./ui.js";
 import * as utils from "../scripts/utils.js";
 import { saveFen, localStorageController } from "../scripts/save-game.js";
 import { createGameOverParagraph } from "../scripts/game-over.js";
+import * as audio from "../scripts/audio.js";
 
 export const chess = new Chess();
 export const COORD_REGEX = /([a-h][1-8])/;
@@ -119,6 +120,7 @@ async function getMoveObject() {
     return move;
   } catch (error) {
     console.log("Movimento inválido segundo as regras do xadrez", error);
+    audio.playIllegalSound()
   }
 }
 
@@ -140,7 +142,10 @@ export async function promotionController() {
 
 export function checkController() {
   ui.clearCheckDisplay();
-  if (chess.inCheck() && !chess.isCheckmate()) ui.createCheckDisplay();
+  if (chess.inCheck() && !chess.isCheckmate()){
+    ui.createCheckDisplay();
+    audio.playCheckSound()
+  }
 }
 
 function enPassantController() {
@@ -215,6 +220,7 @@ function gameOverController() {
       const reason = game.getDrawReason();
       createGameOverParagraph(reason);
     }
+    audio.playGameEndSound()
   }
 }
 
