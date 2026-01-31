@@ -68,6 +68,10 @@
     position: relative;
 }
 
+.pieces:active {
+    cursor: grabbing;
+}
+
 .pieces.check::before {
     content: "";
     position: absolute;
@@ -173,6 +177,10 @@ li.promotionItem{
         border: none;
         box-shadow: none;
     }
+}
+
+.teste{
+    cursor: pointer !important;
 }
 
 .moved, .movedPiece{

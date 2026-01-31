@@ -235,11 +235,6 @@ export function unflipBoard(){
   elements.board?.classList.remove('board-flipped')
 }
 
-elements.board.addEventListener("dragover", (e) => {
-  e.preventDefault();
-  e.dataTransfer.dropEffect = "move";
-});
-
 addEventListener("mousedown", (e) => {
   if (
     e.target.classList[0] !== "pieces" ||

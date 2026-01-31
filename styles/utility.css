@@ -62,3 +62,7 @@
 .bg-transparent{
     background: transparent;
 }
+
+.bgc-transparent{
+    background-color: transparent;
+}

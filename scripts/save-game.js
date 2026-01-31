@@ -113,7 +113,8 @@ function getColorNTypeByFen(fenValue) {
 
 function updateUI(coord, colorNType) {
   const element = Object.assign(document.createElement("div"), {
-    className: `pieces ${colorNType.color} ${colorNType.type} ${coord}`,
+    className: `pieces ${colorNType.color} ${colorNType.type} ${coord}`, 
+    draggable: true
   });
   elements.board?.appendChild(element);
 }
