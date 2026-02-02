@@ -37,7 +37,7 @@ Desenvolvi este projeto com o intuito de aprender fundamentos do frontend (html,
 
 ### 1. Clone o repositório
 
-    - git clone https://github.com/Marcosruan/WEB_CHESS.git
+    - git clone https://github.com/Marcosruan/Web-Chess.git
 
 ### 2. Execute
 
