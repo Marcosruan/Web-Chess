@@ -35,17 +35,21 @@ Desenvolvi este projeto com o intuito de aprender fundamentos do frontend (html,
 
 ## 🚀 Como executar
 
-### 1. Clone o repositório
+1. Clone o repositório
+    ```sh
+    git clone https://github.com/Marcosruan/Web-Chess.git
+    ```
 
-    - git clone https://github.com/Marcosruan/Web-Chess.git
+2. inicialize o Docker
+    ```sh
+    - Certifique-se de abrir o programa do Docker
+    - Na pasta do projeto (importante), abra o terminal e execute docker-compose up -d
+    ```
 
-### 2. inicialize o Docker
-
-    - Na pasta do projeto, abra o terminal e execute docker-compose up -d
-
-### 3. inicialize o Docker
-
+3. Acesse a aplicação
+    ```sh
     - Abra o seu navegador e acesse o http://localhost:8080
+    ```
 
 ---
 
@@ -98,9 +102,12 @@ WEB CHESS/
 
 ## 🖥️ **Tecnologias usadas**
 
-    - HTML, CSS e JavaScript
-    - Chess.js
-    - Git e GitHub
+![JavaScript](https://img.shields.io/badge/JavaScript-yellow?style=for-the-badge&logo=javascript&logoColor=white)
+![HTML](https://img.shields.io/badge/HTML-orange?style=for-the-badge&logo=html&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-007ACC?style=for-the-badge&logo=css&logoColor=white)
+![Git](https://img.shields.io/badge/Git-red?style=for-the-badge&logo=git&logoColor=white)
+![Chess.js](https://img.shields.io/badge/Chess.js-pink?style=for-the-badge&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-blue?style=for-the-badge&logo=docker&logoColor=white)
 
 ## 🗃️ **Versão**
 
@@ -111,4 +118,6 @@ WEB CHESS/
 - **Marcos Ruan V. de Figueiredo**  
   [@Marcosruan](https://github.com/Marcosruan)
 
-<!-- win + . para emojis -->
+## 🏛️ **Licença**
+
+    - Distribuído sob a licença GPL2. Acesse `LICENSE.txt` para mais informações.
