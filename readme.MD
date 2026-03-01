@@ -39,9 +39,13 @@ Desenvolvi este projeto com o intuito de aprender fundamentos do frontend (html,
 
     - git clone https://github.com/Marcosruan/Web-Chess.git
 
-### 2. Execute
+### 2. inicialize o Docker
 
-    - Execute o arquivo index.html
+    - Na pasta do projeto, abra o terminal e execute docker-compose up -d
+
+### 3. inicialize o Docker
+
+    - Abra o seu navegador e acesse o http://localhost:8080
 
 ---
 
