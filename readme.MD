@@ -44,6 +44,7 @@ Desenvolvi este projeto com o intuito de aprender fundamentos do frontend (html,
 
     - Certifique-se de abrir o programa do Docker
     - Na pasta do projeto (importante), abra o terminal e execute:
+
     ```sh
     docker-compose up -d
     ```
@@ -51,6 +52,7 @@ Desenvolvi este projeto com o intuito de aprender fundamentos do frontend (html,
 3. Acesse a aplicação
 
     - Abra o seu navegador e acesse:
+
     ```sh
     http://localhost:8080
     ```
