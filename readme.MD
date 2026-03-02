@@ -41,14 +41,18 @@ Desenvolvi este projeto com o intuito de aprender fundamentos do frontend (html,
     ```
 
 2. inicialize o Docker
-    ```sh
+
     - Certifique-se de abrir o programa do Docker
-    - Na pasta do projeto (importante), abra o terminal e execute docker-compose up -d
+    - Na pasta do projeto (importante), abra o terminal e execute:
+    ```sh
+    docker-compose up -d
     ```
 
 3. Acesse a aplicação
+
+    - Abra o seu navegador e acesse:
     ```sh
-    - Abra o seu navegador e acesse o http://localhost:8080
+    http://localhost:8080
     ```
 
 ---
